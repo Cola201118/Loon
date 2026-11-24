@@ -47,6 +47,8 @@ jobs:
               }
               key = tolower(key)
               gsub(/[[:space:]]+/, "", key)
+              # Remove only Apple Music-exclusive domain rules; keep shared iTunes/CDN rules.
+              if (key == "domain-suffix,applemusic.com" || key == "domain-suffix,music.apple.com") next
               if (!seen[key]++) print original
             }
           ' > rules/Apple-Combined.list
