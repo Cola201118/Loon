@@ -23,6 +23,16 @@ jobs:
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/Kianuni/AppleFlow/main/rules/surge/Siri-Direct.list" -o rules/Siri-Direct.list
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/Kianuni/AppleFlow/main/rules/surge/Apple-APNs-Direct.list" -o rules/Apple-APNs-Direct.list
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/o-ocn/loon-rules/main/dist/Apple-Direct.lsr" -o rules/Apple-Direct.lsr
+          {
+            echo "# Combined Apple direct rules"
+            echo "# Generated from the three upstream sources below."
+            echo
+            cat rules/Siri-Direct.list
+            echo
+            cat rules/Apple-APNs-Direct.list
+            echo
+            cat rules/Apple-Direct.lsr
+          } > rules/Apple-Combined.list
 
       - name: Commit changes when needed
         shell: bash
