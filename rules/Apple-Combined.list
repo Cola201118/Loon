@@ -73,9 +73,7 @@ DOMAIN,cl5.apple.com
 DOMAIN,pancake.apple.com
 DOMAIN,tr.iadsdk.apple.com
 IP-CIDR,17.248.128.0/17,no-resolve
-DOMAIN-SUFFIX,applemusic.com
 DOMAIN-SUFFIX,blobstore.apple.com
-DOMAIN-SUFFIX,music.apple.com
 USER-AGENT,Music*
 DOMAIN-SUFFIX,apple-cloudkit.com
 DOMAIN-SUFFIX,apple-icloud.cn
