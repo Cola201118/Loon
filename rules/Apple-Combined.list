@@ -1,9 +1,11 @@
+# Combined Apple direct rules (deduplicated)
+# Generated from the three upstream sources below.
+
 # ===== rules/Siri-Direct.list =====
 # AppleFlow — Siri & Mandarin Call Screening Direct Rules
 # 必须置于代理规则与 Apple 兜底规则之前，并配合 skip-proxy + always-real-ip 使用
 # Homepage: https://kianuni.github.io/AppleFlow/
 # Version: 1.0.1
-
 DOMAIN-SUFFIX,guzzoni.apple.com // Siri & 普通话来电筛选核心语音网关（严禁代理或 Fake-IP）
 DOMAIN-SUFFIX,siri.apple.com // Siri 语音服务域名
 DOMAIN,dejavu.apple.com // Siri 语音识别辅助服务
@@ -15,7 +17,6 @@ DOMAIN-SUFFIX,smoot.apple.com // Spotlight / Siri 搜索建议（切勿开启旧
 # 纯净版苹果推送与身份直连规则（已剔除会误伤第三方网站的 akadns.net）
 # Homepage: https://kianuni.github.io/AppleFlow/
 # Version: 1.0.1
-
 DOMAIN,identity.apple.com // Apple ID 设备身份认证直连
 DOMAIN-SUFFIX,push.apple.com // APNs 系统推送通知直连
 DOMAIN-KEYWORD,apple.com.edgekey.net // Apple Akamai 边缘直连
@@ -39,7 +40,6 @@ IP-CIDR6,2a01:b740:a42::/48,no-resolve // Apple APNs IPv6 号段
 DOMAIN-SUFFIX,apps.apple.com
 DOMAIN-SUFFIX,itunes.apple.com
 DOMAIN-SUFFIX,mzstatic.com
-DOMAIN,identity.apple.com
 DOMAIN-SUFFIX,appleid.apple.com
 DOMAIN-SUFFIX,appleid.cdn-apple.com
 DOMAIN,guzzoni.apple.com
@@ -211,3 +211,4 @@ DOMAIN-SUFFIX,mesu.g.aaplimg.com
 DOMAIN-SUFFIX,ocsp-lb.apple.com.akadns.net
 DOMAIN-SUFFIX,ocsp.apple.com
 DOMAIN-SUFFIX,ocsp.g.aaplimg.com
+
