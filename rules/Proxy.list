@@ -1,11 +1,7 @@
 # NAME: Proxy
 # SOURCE: blackmatrix7/ios_rule_script (Loon)
-# UPDATED: 2026-11-25 16:45:13 UTC
+# UPDATED: 2026-11-25 18:50:23 UTC
 # SOURCES: Proxy_Source.list + Proxy_Domain.list + GitHub.list + Google.list + Telegram.list + Instagram.list + Twitter.list + Steam.list
-# EXCLUDED: rules/AI.list + rules/Apple.list (preferred higher-priority collections)
-# TOTAL: 7712
-# App rules merged: GitHub + Google + Telegram + Instagram + Twitter + Steam
-# Proxy_Domain entries converted to DOMAIN / DOMAIN-SUFFIX rules
 # DOMAIN: 11
 # DOMAIN-KEYWORD: 33
 # DOMAIN-SUFFIX: 7526
@@ -13,7 +9,9 @@
 # IP-CIDR: 119
 # IP-CIDR6: 7
 # USER-AGENT: 11
-# Proxy rules (deduplicated and sorted)
+# TOTAL: 7712
+# App rules merged: GitHub + Google + Telegram + Instagram + Twitter + Steam
+# Proxy_Domain entries converted to DOMAIN / DOMAIN-SUFFIX rules
 
 DOMAIN,api.imem.app
 DOMAIN,api.swiftgram.app
@@ -7585,17 +7583,17 @@ DOMAIN-KEYWORD,twitter
 DOMAIN-KEYWORD,uk-live
 DOMAIN-KEYWORD,whatsapp
 DOMAIN-KEYWORD,youtube
-USER-AGENT,*com.google.Drive*
 USER-AGENT,%E4%BA%91%E7%AB%AF%E7%A1%AC%E7%9B%98*
-USER-AGENT,battleroyale*
-USER-AGENT,com.apple.trustd*
+USER-AGENT,*com.google.Drive*
 USER-AGENT,Duolingo*
 USER-AGENT,Google.Drive*
-USER-AGENT,hearthstone*
 USER-AGENT,OneDrive*
 USER-AGENT,PayPal*
 USER-AGENT,Roam*
 USER-AGENT,WhatsApp*
+USER-AGENT,battleroyale*
+USER-AGENT,com.apple.trustd*
+USER-AGENT,hearthstone*
 IP-ASN,211157,no-resolve
 IP-ASN,44907,no-resolve
 IP-ASN,59930,no-resolve
