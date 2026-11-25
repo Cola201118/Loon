@@ -548,3 +548,11 @@ DOMAIN,auth.meta.com
 DOMAIN,meta.graph.meta.com
 DOMAIN,sam2.metademolab.com
 DOMAIN,www.aidemos.meta.com
+
+# Manual supplement (Muse, not from upstream)
+DOMAIN-SUFFIX,meta.com
+DOMAIN-SUFFIX,museai.com
+DOMAIN-SUFFIX,ecto1.ai
+DOMAIN-SUFFIX,llamameta.net
+DOMAIN-SUFFIX,metademolab.com
+DOMAIN,ep7.facebook.com
