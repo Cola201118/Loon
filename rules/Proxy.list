@@ -1,12 +1,12 @@
 # NAME: Proxy
 # SOURCE: blackmatrix7/ios_rule_script (Loon)
-# UPDATED: 2026-11-25 02:56:02 UTC
+# UPDATED: 2026-11-25 02:56:22 UTC
 # INPUT TOTAL: 7762
 # DEDUPLICATED: 122
 # TOTAL: 7640
 # SOURCES: Proxy_Source.list + Proxy_Domain.list + GitHub.list + Google.list + Telegram.list
-# Proxy_Domain entries converted to DOMAIN / DOMAIN-SUFFIX rules
 # App rules merged: GitHub + Google + Telegram
+# Proxy_Domain entries converted to DOMAIN / DOMAIN-SUFFIX rules
 
 DOMAIN,api.imem.app
 DOMAIN,api.swiftgram.app
@@ -7637,14 +7637,14 @@ IP-CIDR6,2001:b28:f23f::/48,no-resolve
 IP-CIDR6,2620:120:e000::/40,no-resolve
 IP-CIDR6,2a0a:f280::/29,no-resolve
 IP-CIDR6,2a0a:f280::/32,no-resolve
-USER-AGENT,*com.google.Drive*
 USER-AGENT,%E4%BA%91%E7%AB%AF%E7%A1%AC%E7%9B%98*
-USER-AGENT,battleroyale*
-USER-AGENT,com.apple.trustd*
+USER-AGENT,*com.google.Drive*
 USER-AGENT,Duolingo*
 USER-AGENT,Google.Drive*
-USER-AGENT,hearthstone*
 USER-AGENT,OneDrive*
 USER-AGENT,PayPal*
 USER-AGENT,Roam*
 USER-AGENT,WhatsApp*
+USER-AGENT,battleroyale*
+USER-AGENT,com.apple.trustd*
+USER-AGENT,hearthstone*
