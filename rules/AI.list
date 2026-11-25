@@ -556,3 +556,16 @@ DOMAIN-SUFFIX,ecto1.ai
 DOMAIN-SUFFIX,llamameta.net
 DOMAIN-SUFFIX,metademolab.com
 DOMAIN,ep7.facebook.com
+
+# Manual supplement (Grok / xAI, from rules/Grok.manual.list)
+DOMAIN-SUFFIX,grokusercontent.com
+DOMAIN,auth.x.ai
+DOMAIN,accounts.x.ai
+DOMAIN,api.x.ai
+DOMAIN,us.api.x.ai
+DOMAIN,cli-chat-proxy.grok.com
+DOMAIN,code.grok.com
+DOMAIN,assets.grok.com
+DOMAIN,management-api.x.ai
+DOMAIN,console.x.ai
+DOMAIN,status.x.ai
