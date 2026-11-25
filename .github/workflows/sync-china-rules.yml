@@ -1,6 +1,9 @@
 name: Sync upstream China rules
 
 on:
+  push:
+    paths:
+      - ".github/workflows/sync-china-rules.yml"
   workflow_dispatch:
   schedule:
     - cron: "37 */6 * * *"
@@ -39,7 +42,7 @@ jobs:
               text = request.read().decode("utf-8")
 
               # Keep every upstream input as its own raw subscription file.
-              with open("rules/" + name, "w", encoding="utf-8", newline="\\n") as raw_file:
+              with open("rules/" + name, "w", encoding="utf-8") as raw_file:
                   raw_file.write(text)
 
               entries = [
