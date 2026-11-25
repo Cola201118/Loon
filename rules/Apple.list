@@ -1,6 +1,6 @@
 # NAME: Apple
 # SOURCE: AppleFlow + o-ocn/loon-rules
-# UPDATED: 2026-11-25 15:52:48 UTC
+# UPDATED: 2026-11-26 00:00:00 UTC
 # SOURCES: Siri.list + Apple-APNs.list + Apple.lsr
 # DOMAIN: 81
 # DOMAIN-KEYWORD: 2
@@ -10,86 +10,113 @@
 # USER-AGENT: 1
 # TOTAL: 189
 
-# Apple rules (deduplicated)
-# Generated from the three upstream sources below.
-# ===== rules/Apple/Siri.list =====
-# AppleFlow — Siri & Mandarin Call Screening Direct Rules
-# 必须置于代理规则与 Apple 兜底规则之前，并配合 skip-proxy + always-real-ip 使用
-# Homepage: https://kianuni.github.io/AppleFlow/
-# Version: 1.0.1
-DOMAIN-SUFFIX,guzzoni.apple.com // Siri & 普通话来电筛选核心语音网关（严禁代理或 Fake-IP）
-DOMAIN-SUFFIX,siri.apple.com // Siri 语音服务域名
-DOMAIN,dejavu.apple.com // Siri 语音识别辅助服务
-DOMAIN,sequoia.apple.com // Siri 自然语言服务
-DOMAIN-SUFFIX,smoot.apple.com // Spotlight / Siri 搜索建议（切勿开启旧版 MitM）
-# ===== rules/Apple/Apple-APNs.list =====
-# AppleFlow — Clean APNs & Identity Direct Rules
-# 纯净版苹果推送与身份直连规则（已剔除会误伤第三方网站的 akadns.net）
-# Homepage: https://kianuni.github.io/AppleFlow/
-# Version: 1.0.1
-DOMAIN,identity.apple.com // Apple ID 设备身份认证直连
-DOMAIN-SUFFIX,push.apple.com // APNs 系统推送通知直连
-DOMAIN-KEYWORD,apple.com.edgekey.net // Apple Akamai 边缘直连
-IP-CIDR,17.249.0.0/16,no-resolve // Apple APNs IPv4 号段
-IP-CIDR,17.252.0.0/16,no-resolve // Apple APNs IPv4 号段
-IP-CIDR,17.57.144.0/22,no-resolve // Apple APNs IPv4 号段
-IP-CIDR,17.188.128.0/18,no-resolve // Apple APNs IPv4 号段
-IP-CIDR,17.188.20.0/23,no-resolve // Apple APNs IPv4 号段
-IP-CIDR6,2403:300:a42::/48,no-resolve // Apple APNs IPv6 号段
-IP-CIDR6,2403:300:a51::/48,no-resolve // Apple APNs IPv6 号段
-IP-CIDR6,2620:149:a44::/48,no-resolve // Apple APNs IPv6 号段
-IP-CIDR6,2a01:b740:a42::/48,no-resolve // Apple APNs IPv6 号段
-# ===== rules/Apple/Apple.lsr =====
-# DESCRIPTION: Apple baseline services (iCloud, CloudKit, App Store, Apple ID, HomeKit, Apple Music, SystemOTA)
-# AUTHOR: o-ocn
-# REVISION: 0e33096c4d3e
-# ==============================================================================
-DOMAIN-SUFFIX,apps.apple.com
-DOMAIN-SUFFIX,itunes.apple.com
-DOMAIN-SUFFIX,mzstatic.com
-DOMAIN-SUFFIX,appleid.apple.com
-DOMAIN-SUFFIX,appleid.cdn-apple.com
-DOMAIN,guzzoni.apple.com
-DOMAIN,guzzoni.smoot.apple.com
-DOMAIN,gsa.apple.com
-DOMAIN,idmsa.apple.com
-DOMAIN-SUFFIX,audio-ssl.itunes.apple.com
-DOMAIN-SUFFIX,apple-dns.net
-DOMAIN,konut-cdn.apple.com
-DOMAIN-SUFFIX,swcdn.apple.com
-DOMAIN-SUFFIX,updates-http.cdn-apple.com
-DOMAIN-SUFFIX,gg.apple.com
-DOMAIN-SUFFIX,gnip.apple.com
-DOMAIN,gdmf-ados.apple.com
-DOMAIN-SUFFIX,ocsp2.apple.com
-DOMAIN-SUFFIX,time.apple.com
-DOMAIN-SUFFIX,appattest.apple.com
-DOMAIN,wps.apple.com
-DOMAIN-SUFFIX,ls.apple.com
-DOMAIN,weatherkit.apple.com
-DOMAIN,iphone-ld.apple.com
-DOMAIN-SUFFIX,sandbox.apple.com
-DOMAIN,init.ess.apple.com
-DOMAIN,init-p01md.apple.com
-DOMAIN-SUFFIX,apple-mapkit.com
+# Apple rules (deduplicated and sorted)
+DOMAIN,appldnld-cdn.apple.com.akadns.net
+DOMAIN,appldnld-cdn.origin-apple.com.akadns.net
+DOMAIN,appldnld.apple.com.mwcname.com
 DOMAIN,cl1.apple.com
 DOMAIN,cl2.apple.com
 DOMAIN,cl3.apple.com
 DOMAIN,cl4.apple.com
 DOMAIN,cl5.apple.com
+DOMAIN,configuration.apple.com
+DOMAIN,dejavu.apple.com // Siri 语音识别辅助服务
+DOMAIN,gdmf-ados.apple.com
+DOMAIN,gdmf-cdn.apple.com.akadns.net
+DOMAIN,gdmf-cdn.origin-apple.com.akadns.net
+DOMAIN,gdmf-lb.apple.com.akadns.net
+DOMAIN,gdmf.apple.com.mwcname.com
+DOMAIN,gdmf.g.aaplimg.com
+DOMAIN,gg-cdn.apple.com.akadns.net
+DOMAIN,gg-cdn.origin-apple.com.akadns.net
+DOMAIN,gg-lb.apple.com.akadns.net
+DOMAIN,gg.apple.com.akadns.net
+DOMAIN,gg.apple.com.mwcname.com
+DOMAIN,gg.g.aaplimg.com
+DOMAIN,gnf-mdn.apple.com
+DOMAIN,gnf-mr.apple.com
+DOMAIN,gs.apple.com
+DOMAIN,gsa.apple.com
+DOMAIN,guzzoni.apple.com
+DOMAIN,guzzoni.smoot.apple.com
+DOMAIN,identity.apple.com // Apple ID 设备身份认证直连
+DOMAIN,idmsa.apple.com
+DOMAIN,ig.apple.com
+DOMAIN,init-p01md.apple.com
+DOMAIN,init.ess.apple.com
+DOMAIN,iphone-ld.apple.com
+DOMAIN,iphonesubmissions-cdn.apple.com.akadns.net
+DOMAIN,iphonesubmissions-cdn.origin-apple.com.akadns.net
+DOMAIN,iphonesubmissions-lb.apple.com.akadns.net
+DOMAIN,iphonesubmissions.apple.com
+DOMAIN,iphonesubmissions.apple.com.akadns.net
+DOMAIN,iphonesubmissions.apple.com.mwcname.com
+DOMAIN,iphonesubmissions.g.aaplimg.com
+DOMAIN,konut-cdn.apple.com
+DOMAIN,mesu-lb.apple.com.akadns.net
+DOMAIN,mesu.apple.com.akadns.net
+DOMAIN,mesu.apple.com.mwcname.com
+DOMAIN,ocsp-cdn.apple.com.akadns.net
+DOMAIN,ocsp-cdn.origin-apple.com.akadns.net
+DOMAIN,ocsp.apple.com.akadns.net
+DOMAIN,ocsp.apple.com.mwcname.com
+DOMAIN,oscdn.apple.com
+DOMAIN,osrecovery.apple.com
 DOMAIN,pancake.apple.com
+DOMAIN,radarsubmissions-cdn.apple.com.akadns.net
+DOMAIN,radarsubmissions-cdn.origin-apple.com.akadns.net
+DOMAIN,radarsubmissions-lb.apple.com.akadns.net
+DOMAIN,radarsubmissions.apple.com
+DOMAIN,radarsubmissions.apple.com.akadns.net
+DOMAIN,radarsubmissions.apple.com.mwcname.com
+DOMAIN,radarsubmissions.g.aaplimg.com
+DOMAIN,sequoia.apple.com // Siri 自然语言服务
+DOMAIN,skl.apple.com
+DOMAIN,swdist.apple.com
+DOMAIN,swdownload.apple.com
+DOMAIN,swpost.apple.com
+DOMAIN,swscan-cdn.apple.com.akadns.net
+DOMAIN,swscan-cdn.origin-apple.com.akadns.net
+DOMAIN,swscan-lb.apple.com.akadns.net
+DOMAIN,swscan.apple.com
+DOMAIN,swscan.apple.com.akadns.net
+DOMAIN,swscan.apple.com.mwcname.com
+DOMAIN,swscan.g.aaplimg.com
 DOMAIN,tr.iadsdk.apple.com
-IP-CIDR,17.248.128.0/17,no-resolve
-DOMAIN-SUFFIX,blobstore.apple.com
-USER-AGENT,Music*
+DOMAIN,weatherkit.apple.com
+DOMAIN,wps.apple.com
+DOMAIN,xp-cdn.apple.com.akadns.net
+DOMAIN,xp-cdn.origin-apple.com.akadns.net
+DOMAIN,xp-lb.apple.com.akadns.net
+DOMAIN,xp.apple.com
+DOMAIN,xp.apple.com.akadns.net
+DOMAIN,xp.apple.com.mwcname.com
+DOMAIN,xp.g.aaplimg.com
+DOMAIN-SUFFIX,appattest.apple.com
+DOMAIN-SUFFIX,appldnld-lb.apple.com.akadns.net
+DOMAIN-SUFFIX,appldnld.apple.com
+DOMAIN-SUFFIX,appldnld.apple.com.akadns.net
+DOMAIN-SUFFIX,appldnld.g.aaplimg.com
 DOMAIN-SUFFIX,apple-cloudkit.com
+DOMAIN-SUFFIX,apple-dns.net
 DOMAIN-SUFFIX,apple-icloud.cn
 DOMAIN-SUFFIX,apple-livephotoskit.com
+DOMAIN-SUFFIX,apple-mapkit.com
 DOMAIN-SUFFIX,appleicloud.cn
+DOMAIN-SUFFIX,appleid.apple.com
+DOMAIN-SUFFIX,appleid.cdn-apple.com
 DOMAIN-SUFFIX,applemx-icloud.com
+DOMAIN-SUFFIX,apps.apple.com
 DOMAIN-SUFFIX,apzones.com
+DOMAIN-SUFFIX,audio-ssl.itunes.apple.com
+DOMAIN-SUFFIX,blobstore.apple.com
 DOMAIN-SUFFIX,cdn-apple.com
 DOMAIN-SUFFIX,gc.apple.com
+DOMAIN-SUFFIX,gdmf.apple.com
+DOMAIN-SUFFIX,gdmf.apple.com.akadns.net
+DOMAIN-SUFFIX,gg.apple.com
+DOMAIN-SUFFIX,gnip.apple.com
+DOMAIN-SUFFIX,guzzoni.apple.com // Siri & 普通话来电筛选核心语音网关（严禁代理或 Fake-IP）
 DOMAIN-SUFFIX,icloud-apple.cn
 DOMAIN-SUFFIX,icloud-content.com
 DOMAIN-SUFFIX,icloud-content.com.cn
@@ -136,83 +163,40 @@ DOMAIN-SUFFIX,icloudpay.net
 DOMAIN-SUFFIX,icloudsecure.net
 DOMAIN-SUFFIX,icloudsetup.com
 DOMAIN-SUFFIX,ios-icloud.com
+DOMAIN-SUFFIX,itunes.apple.com
 DOMAIN-SUFFIX,iwork.apple.com
+DOMAIN-SUFFIX,ls.apple.com
 DOMAIN-SUFFIX,me.com
-DOMAIN-SUFFIX,myicloud.net
-DOMAIN-SUFFIX,mylcloud.net
-DOMAIN-SUFFIX,www-cdn.icloud.com.akadns.net
-DOMAIN-SUFFIX,wwwicloud.com
-DOMAIN-KEYWORD,icloud.com.akadns.net
-DOMAIN,appldnld-cdn.apple.com.akadns.net
-DOMAIN,appldnld-cdn.origin-apple.com.akadns.net
-DOMAIN,appldnld.apple.com.mwcname.com
-DOMAIN,configuration.apple.com
-DOMAIN,gdmf-cdn.apple.com.akadns.net
-DOMAIN,gdmf-cdn.origin-apple.com.akadns.net
-DOMAIN,gdmf-lb.apple.com.akadns.net
-DOMAIN,gdmf.apple.com.mwcname.com
-DOMAIN,gdmf.g.aaplimg.com
-DOMAIN,gg-cdn.apple.com.akadns.net
-DOMAIN,gg-cdn.origin-apple.com.akadns.net
-DOMAIN,gg-lb.apple.com.akadns.net
-DOMAIN,gg.apple.com.akadns.net
-DOMAIN,gg.apple.com.mwcname.com
-DOMAIN,gg.g.aaplimg.com
-DOMAIN,gnf-mdn.apple.com
-DOMAIN,gnf-mr.apple.com
-DOMAIN,gs.apple.com
-DOMAIN,ig.apple.com
-DOMAIN,iphonesubmissions-cdn.apple.com.akadns.net
-DOMAIN,iphonesubmissions-cdn.origin-apple.com.akadns.net
-DOMAIN,iphonesubmissions-lb.apple.com.akadns.net
-DOMAIN,iphonesubmissions.apple.com
-DOMAIN,iphonesubmissions.apple.com.akadns.net
-DOMAIN,iphonesubmissions.apple.com.mwcname.com
-DOMAIN,iphonesubmissions.g.aaplimg.com
-DOMAIN,mesu-lb.apple.com.akadns.net
-DOMAIN,mesu.apple.com.akadns.net
-DOMAIN,mesu.apple.com.mwcname.com
-DOMAIN,ocsp-cdn.apple.com.akadns.net
-DOMAIN,ocsp-cdn.origin-apple.com.akadns.net
-DOMAIN,ocsp.apple.com.akadns.net
-DOMAIN,ocsp.apple.com.mwcname.com
-DOMAIN,oscdn.apple.com
-DOMAIN,osrecovery.apple.com
-DOMAIN,radarsubmissions-cdn.apple.com.akadns.net
-DOMAIN,radarsubmissions-cdn.origin-apple.com.akadns.net
-DOMAIN,radarsubmissions-lb.apple.com.akadns.net
-DOMAIN,radarsubmissions.apple.com
-DOMAIN,radarsubmissions.apple.com.akadns.net
-DOMAIN,radarsubmissions.apple.com.mwcname.com
-DOMAIN,radarsubmissions.g.aaplimg.com
-DOMAIN,skl.apple.com
-DOMAIN,swdist.apple.com
-DOMAIN,swdownload.apple.com
-DOMAIN,swpost.apple.com
-DOMAIN,swscan-cdn.apple.com.akadns.net
-DOMAIN,swscan-cdn.origin-apple.com.akadns.net
-DOMAIN,swscan-lb.apple.com.akadns.net
-DOMAIN,swscan.apple.com
-DOMAIN,swscan.apple.com.akadns.net
-DOMAIN,swscan.apple.com.mwcname.com
-DOMAIN,swscan.g.aaplimg.com
-DOMAIN,xp-cdn.apple.com.akadns.net
-DOMAIN,xp-cdn.origin-apple.com.akadns.net
-DOMAIN,xp-lb.apple.com.akadns.net
-DOMAIN,xp.apple.com
-DOMAIN,xp.apple.com.akadns.net
-DOMAIN,xp.apple.com.mwcname.com
-DOMAIN,xp.g.aaplimg.com
-DOMAIN-SUFFIX,appldnld-lb.apple.com.akadns.net
-DOMAIN-SUFFIX,appldnld.apple.com
-DOMAIN-SUFFIX,appldnld.apple.com.akadns.net
-DOMAIN-SUFFIX,appldnld.g.aaplimg.com
-DOMAIN-SUFFIX,gdmf.apple.com
-DOMAIN-SUFFIX,gdmf.apple.com.akadns.net
 DOMAIN-SUFFIX,mesu-cdn.apple.com.akadns.net
 DOMAIN-SUFFIX,mesu-cdn.origin-apple.com.akadns.net
 DOMAIN-SUFFIX,mesu.apple.com
 DOMAIN-SUFFIX,mesu.g.aaplimg.com
+DOMAIN-SUFFIX,myicloud.net
+DOMAIN-SUFFIX,mylcloud.net
+DOMAIN-SUFFIX,mzstatic.com
 DOMAIN-SUFFIX,ocsp-lb.apple.com.akadns.net
 DOMAIN-SUFFIX,ocsp.apple.com
 DOMAIN-SUFFIX,ocsp.g.aaplimg.com
+DOMAIN-SUFFIX,ocsp2.apple.com
+DOMAIN-SUFFIX,push.apple.com // APNs 系统推送通知直连
+DOMAIN-SUFFIX,sandbox.apple.com
+DOMAIN-SUFFIX,siri.apple.com // Siri 语音服务域名
+DOMAIN-SUFFIX,smoot.apple.com // Spotlight / Siri 搜索建议（切勿开启旧版 MitM）
+DOMAIN-SUFFIX,swcdn.apple.com
+DOMAIN-SUFFIX,time.apple.com
+DOMAIN-SUFFIX,updates-http.cdn-apple.com
+DOMAIN-SUFFIX,www-cdn.icloud.com.akadns.net
+DOMAIN-SUFFIX,wwwicloud.com
+DOMAIN-KEYWORD,apple.com.edgekey.net // Apple Akamai 边缘直连
+DOMAIN-KEYWORD,icloud.com.akadns.net
+USER-AGENT,Music*
+IP-CIDR,17.188.128.0/18,no-resolve // Apple APNs IPv4 号段
+IP-CIDR,17.188.20.0/23,no-resolve // Apple APNs IPv4 号段
+IP-CIDR,17.248.128.0/17,no-resolve
+IP-CIDR,17.249.0.0/16,no-resolve // Apple APNs IPv4 号段
+IP-CIDR,17.252.0.0/16,no-resolve // Apple APNs IPv4 号段
+IP-CIDR,17.57.144.0/22,no-resolve // Apple APNs IPv4 号段
+IP-CIDR6,2403:300:a42::/48,no-resolve // Apple APNs IPv6 号段
+IP-CIDR6,2403:300:a51::/48,no-resolve // Apple APNs IPv6 号段
+IP-CIDR6,2620:149:a44::/48,no-resolve // Apple APNs IPv6 号段
+IP-CIDR6,2a01:b740:a42::/48,no-resolve // Apple APNs IPv6 号段
