@@ -101,12 +101,15 @@ jobs:
               line.casefold(),
           ))
 
+          from collections import Counter
+          type_counts = Counter(line.split(",", 1)[0].strip().upper() for line in unique)
           generated = [
               "# NAME: Proxy",
               "# SOURCE: blackmatrix7/ios_rule_script (Loon)",
               "# UPDATED: " + datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
               "# INPUT TOTAL: " + str(len(rules)),
               "# DEDUPLICATED: " + str(len(rules) - len(unique)),
+              *[f"# {kind}: {type_counts[kind]}" for kind in sorted(type_counts)],
               "# TOTAL: " + str(len(unique)),
               "# SOURCES: Proxy_Source.list + Proxy_Domain.list + GitHub.list + Google.list + Telegram.list + Instagram.list + Twitter.list + Steam.list",
               "# App rules merged: GitHub + Google + Telegram + Instagram + Twitter + Steam",
@@ -157,7 +160,18 @@ jobs:
           match = re.search(r"^# TOTAL: (\d+)$", "\n".join(lines), re.M)
           if not match or int(match.group(1)) != len(rules):
               raise SystemExit(f"Proxy.list # TOTAL mismatch: actual {len(rules)}")
-          print(f"Proxy.list: {len(rules)} rules; validation passed")
+          expected = {}
+          for rule in rules:
+              kind = rule.split(",", 1)[0].strip().upper()
+              expected[kind] = expected.get(kind, 0) + 1
+          header_counts = {}
+          for raw in lines:
+              match = re.match(r"^# ([A-Z0-9-]+): (\\d+)$", raw)
+              if match and match.group(1) not in ("NAME", "TOTAL", "INPUT", "DEDUPLICATED"):
+                  header_counts[match.group(1)] = int(match.group(2))
+          if header_counts != expected:
+              raise SystemExit(f"Proxy.list per-type counts mismatch: expected {expected}, got {header_counts}")
+          print(f"Proxy.list: {len(rules)} rules; type counts validated")
           PY
 
       - name: Commit changes when needed

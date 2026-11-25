@@ -97,12 +97,15 @@ jobs:
               line.casefold(),
           ))
 
+          from collections import Counter
+          type_counts = Counter(line.split(",", 1)[0].strip().upper() for line in unique)
           generated = [
               "# NAME: China",
               "# SOURCE: blackmatrix7/ios_rule_script (Loon)",
               "# UPDATED: " + datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
               "# INPUT TOTAL: " + str(len(rules)),
               "# DEDUPLICATED: " + str(len(rules) - len(unique)),
+              *[f"# {kind}: {type_counts[kind]}" for kind in sorted(type_counts)],
               "# TOTAL: " + str(len(unique)),
               "# SOURCES: ChinaMax.list + ChinaMax_Domain.list + ChinaASN.list + Lan.list",
               "# ChinaMax_Domain entries converted to DOMAIN / DOMAIN-SUFFIX rules",
@@ -152,7 +155,18 @@ jobs:
           match = re.search(r"^# TOTAL: (\d+)$", "\n".join(lines), re.M)
           if not match or int(match.group(1)) != len(rules):
               raise SystemExit(f"China.list # TOTAL mismatch: actual {len(rules)}")
-          print(f"China.list: {len(rules)} rules; validation passed")
+          expected = {}
+          for rule in rules:
+              kind = rule.split(",", 1)[0].strip().upper()
+              expected[kind] = expected.get(kind, 0) + 1
+          header_counts = {}
+          for raw in lines:
+              match = re.match(r"^# ([A-Z0-9-]+): (\\d+)$", raw)
+              if match and match.group(1) not in ("NAME", "TOTAL", "INPUT", "DEDUPLICATED"):
+                  header_counts[match.group(1)] = int(match.group(2))
+          if header_counts != expected:
+              raise SystemExit(f"China.list per-type counts mismatch: expected {expected}, got {header_counts}")
+          print(f"China.list: {len(rules)} rules; type counts validated")
           PY
 
       - name: Commit changes when needed
