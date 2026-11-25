@@ -69,7 +69,7 @@ jobs:
             echo "# Source classification: Meta AI / Muse / Llama / SAM"
             echo "# Upstream: YUDIDIFEI/Scripts rule/Loon/AI/AI.list"
             echo "# Local supplements: rules/AI/Muse.manual.list (merged into AI.list only)"
-            awk 'BEGIN { found=0; active=0 } /^# Meta AI \/ Muse \/ Llama \/ SAM$/ { found=1; active=1 } active { if ($0 == "" && found) exit; print } END { if (!found) exit 2 }' /tmp/upstream-ai.list
+            awk 'BEGIN { found=0; active=0 } /^# Meta AI \/ Muse \/ Llama \/ SAM$/ { found=1; active=1; print; next } active && /^# / { exit } active { print } END { if (!found) exit 2 }' /tmp/upstream-ai.list
           } > rules/AI/Muse.list
 
           # --- Grok: upstream extract only (manual stays in Grok.manual.list) ---
@@ -78,7 +78,7 @@ jobs:
             echo "# Source classification: xAI / Grok / Grokipedia"
             echo "# Upstream: YUDIDIFEI/Scripts rule/Loon/AI/AI.list"
             echo "# Local supplements: rules/AI/Grok.manual.list (merged into AI.list only)"
-            awk 'BEGIN { found=0; active=0 } /^# xAI \/ Grok \/ Grokipedia$/ { found=1; active=1 } active { if ($0 == "" && found) exit; print } END { if (!found) exit 2 }' /tmp/upstream-ai.list
+            awk 'BEGIN { found=0; active=0 } /^# xAI \/ Grok \/ Grokipedia$/ { found=1; active=1; print; next } active && /^# / { exit } active { print } END { if (!found) exit 2 }' /tmp/upstream-ai.list
           } > rules/AI/Grok.list
 
           # --- Merge into AI.list: upstream Grok/Muse + local manuals, deduplicated ---
