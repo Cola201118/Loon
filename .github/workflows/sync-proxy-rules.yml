@@ -30,6 +30,9 @@ jobs:
           sources = {
               "Proxy_Source.list": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Proxy/Proxy.list",
               "Proxy_Domain.list": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Proxy/Proxy_Domain.list",
+              "GitHub.list": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GitHub/GitHub.list",
+              "Google.list": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Google/Google.list",
+              "Telegram.list": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Telegram/Telegram.list",
           }
 
           rules = []
@@ -89,7 +92,8 @@ jobs:
               "# INPUT TOTAL: " + str(len(rules)),
               "# DEDUPLICATED: " + str(len(rules) - len(unique)),
               "# TOTAL: " + str(len(unique)),
-              "# SOURCES: Proxy_Source.list + Proxy_Domain.list",
+              "# SOURCES: Proxy_Source.list + Proxy_Domain.list + GitHub.list + Google.list + Telegram.list",
+              "# App rules merged: GitHub + Google + Telegram",
               "# Proxy_Domain entries converted to DOMAIN / DOMAIN-SUFFIX rules",
               "",
               *unique,
@@ -111,7 +115,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add rules/Proxy_Source.list rules/Proxy_Domain.list rules/Proxy.list
+          git add rules/Proxy_Source.list rules/Proxy_Domain.list rules/GitHub.list rules/Google.list rules/Telegram.list rules/Proxy.list
           if git diff --cached --quiet; then
             echo "No upstream changes."
             exit 0
