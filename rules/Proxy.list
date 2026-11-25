@@ -1,15 +1,15 @@
 # NAME: Proxy
 # SOURCE: blackmatrix7/ios_rule_script (Loon)
-# UPDATED: 2026-11-25 15:46:56 UTC
+# UPDATED: 2026-11-25 16:43:51 UTC
 # SOURCES: Proxy_Source.list + Proxy_Domain.list + GitHub.list + Google.list + Telegram.list + Instagram.list + Twitter.list + Steam.list
 # DOMAIN: 11
 # DOMAIN-KEYWORD: 33
-# DOMAIN-SUFFIX: 7539
+# DOMAIN-SUFFIX: 7526
 # IP-ASN: 5
 # IP-CIDR: 119
 # IP-CIDR6: 7
 # USER-AGENT: 11
-# TOTAL: 7725
+# TOTAL: 7712
 # App rules merged: GitHub + Google + Telegram + Instagram + Twitter + Steam
 # Proxy_Domain entries converted to DOMAIN / DOMAIN-SUFFIX rules
 
@@ -299,7 +299,6 @@ DOMAIN-SUFFIX,ahcdn.com
 DOMAIN-SUFFIX,ai-kan.net
 DOMAIN-SUFFIX,ai-wen.net
 DOMAIN-SUFFIX,ai.dev
-DOMAIN-SUFFIX,ai.studio
 DOMAIN-SUFFIX,aidc.com.tw
 DOMAIN-SUFFIX,aihub.top
 DOMAIN-SUFFIX,aiosearch.com
@@ -489,7 +488,6 @@ DOMAIN-SUFFIX,appbridge.ca
 DOMAIN-SUFFIX,appbridge.io
 DOMAIN-SUFFIX,appbridge.it
 DOMAIN-SUFFIX,appdownloader.net
-DOMAIN-SUFFIX,apple-dns.net
 DOMAIN-SUFFIX,applecensorship.com
 DOMAIN-SUFFIX,apps5.oingo.com
 DOMAIN-SUFFIX,appshopper.com
@@ -805,7 +803,6 @@ DOMAIN-SUFFIX,blinkx.com
 DOMAIN-SUFFIX,blinw.com
 DOMAIN-SUFFIX,blip.tv
 DOMAIN-SUFFIX,blizzard.com
-DOMAIN-SUFFIX,blobstore.apple.com
 DOMAIN-SUFFIX,blockcast.it
 DOMAIN-SUFFIX,blockcn.com
 DOMAIN-SUFFIX,blockedbyhk.com
@@ -1200,10 +1197,8 @@ DOMAIN-SUFFIX,chaos.social
 DOMAIN-SUFFIX,chapm25.com
 DOMAIN-SUFFIX,character.ai
 DOMAIN-SUFFIX,charlestonroadregistry.com
-DOMAIN-SUFFIX,chat.com
 DOMAIN-SUFFIX,chat.gle
 DOMAIN-SUFFIX,chat.openai.com
-DOMAIN-SUFFIX,chatgpt.site
 DOMAIN-SUFFIX,chatnook.com
 DOMAIN-SUFFIX,chatpdf.com
 DOMAIN-SUFFIX,chaturbate.com
@@ -1644,7 +1639,6 @@ DOMAIN-SUFFIX,deck.new
 DOMAIN-SUFFIX,decodet.co
 DOMAIN-SUFFIX,deepai.org
 DOMAIN-SUFFIX,deepdiscount.com
-DOMAIN-SUFFIX,deepmind.com
 DOMAIN-SUFFIX,deezer.com
 DOMAIN-SUFFIX,definebabe.com
 DOMAIN-SUFFIX,deja.com
@@ -2992,8 +2986,6 @@ DOMAIN-SUFFIX,greenvpn.net
 DOMAIN-SUFFIX,greenvpn.org
 DOMAIN-SUFFIX,gridaware.app
 DOMAIN-SUFFIX,grindr.com
-DOMAIN-SUFFIX,grok.com
-DOMAIN-SUFFIX,grokipedia.com
 DOMAIN-SUFFIX,grotty-monday.com
 DOMAIN-SUFFIX,ground.news
 DOMAIN-SUFFIX,gs-discuss.com
@@ -4191,9 +4183,6 @@ DOMAIN-SUFFIX,merlinblog.xyz
 DOMAIN-SUFFIX,meshrep.com
 DOMAIN-SUFFIX,mesotw.com
 DOMAIN-SUFFIX,messenger.com
-DOMAIN-SUFFIX,meta.ai
-DOMAIN-SUFFIX,meta.com
-DOMAIN-SUFFIX,metaaivm.com
 DOMAIN-SUFFIX,metacafe.com
 DOMAIN-SUFFIX,metacubex.one
 DOMAIN-SUFFIX,metafilter.com
@@ -4387,7 +4376,6 @@ DOMAIN-SUFFIX,multiupload.com
 DOMAIN-SUFFIX,mummysgold.com
 DOMAIN-SUFFIX,murmur.tw
 DOMAIN-SUFFIX,muscdn.com
-DOMAIN-SUFFIX,muse.ai
 DOMAIN-SUFFIX,musicade.net
 DOMAIN-SUFFIX,musical.ly
 DOMAIN-SUFFIX,musixmatch.com
@@ -7275,7 +7263,6 @@ DOMAIN-SUFFIX,wzyboy.im
 DOMAIN-SUFFIX,x-art.com
 DOMAIN-SUFFIX,x-berry.com
 DOMAIN-SUFFIX,x-wall.org
-DOMAIN-SUFFIX,x.ai
 DOMAIN-SUFFIX,x.co
 DOMAIN-SUFFIX,x.com
 DOMAIN-SUFFIX,x.company
