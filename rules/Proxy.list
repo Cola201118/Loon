@@ -1,8 +1,8 @@
 # NAME: Proxy
 # SOURCE: blackmatrix7/ios_rule_script (Loon)
 # UPDATED: 2026-11-25 08:04:30 UTC
-# INPUT TOTAL: 69
-# DEDUPLICATED: 6
+# INPUT TOTAL: 7868
+# DEDUPLICATED: 143
 # TOTAL: 7725
 # SOURCES: Proxy_Source.list + Proxy_Domain.list + GitHub.list + Google.list + Telegram.list + Instagram.list + Twitter.list + B7 Steam.list
 # App rules merged: GitHub + Google + Telegram + Instagram + Twitter
