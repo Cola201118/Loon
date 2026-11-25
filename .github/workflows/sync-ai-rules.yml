@@ -63,23 +63,52 @@ jobs:
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/AI/AI.list" -o /tmp/upstream-ai.list
           test -s /tmp/upstream-ai.list
 
-          # --- Muse: upstream extract only (manual stays in Muse.manual.list) ---
-          {
-            echo "# Muse rules"
-            echo "# Source classification: Meta AI / Muse / Llama / SAM"
-            echo "# Upstream: YUDIDIFEI/Scripts rule/Loon/AI/AI.list"
-            echo "# Local supplements: rules/AI/Muse.manual.list (merged into AI.list only)"
-            awk 'BEGIN { found=0; active=0 } /^# Meta AI \/ Muse \/ Llama \/ SAM$/ { found=1; active=1; print; next } active && /^# / { exit } active { print } END { if (!found) exit 2 }' /tmp/upstream-ai.list
-          } > rules/AI/Muse.list
+          # Extract complete upstream categories. Known section headings terminate a
+          # category; ordinary comments inside a category are preserved, not treated
+          # as end markers. Update the heading set if the upstream adds new categories.
+          python3 - <<'PY'
+          from pathlib import Path
 
-          # --- Grok: upstream extract only (manual stays in Grok.manual.list) ---
-          {
-            echo "# Grok rules"
-            echo "# Source classification: xAI / Grok / Grokipedia"
-            echo "# Upstream: YUDIDIFEI/Scripts rule/Loon/AI/AI.list"
-            echo "# Local supplements: rules/AI/Grok.manual.list (merged into AI.list only)"
-            awk 'BEGIN { found=0; active=0 } /^# xAI \/ Grok \/ Grokipedia$/ { found=1; active=1; print; next } active && /^# / { exit } active { print } END { if (!found) exit 2 }' /tmp/upstream-ai.list
-          } > rules/AI/Grok.list
+          source = Path("/tmp/upstream-ai.list").read_text(encoding="utf-8").splitlines()
+          headings = {
+              "OpenAI / ChatGPT / Codex / Sora / Sites / Crixet", "Anthropic / Claude",
+              "Google Gemini / Gemma / Workspace / AI Studio / NotebookLM / Code Assist",
+              "GitHub Copilot / GitHub Models", "Perplexity", "xAI / Grok / Grokipedia",
+              "Poe", "Cursor", "Windsurf / Codeium", "JetBrains AI", "Hugging Face",
+              "Groq", "Cerebras", "ElevenLabs", "Microsoft Copilot", "Mistral / Le Chat",
+              "Cohere", "Midjourney", "OpenRouter", "Meta AI / Muse / Llama / SAM",
+              "Civitai", "Suno", "Runway", "Character.AI", "Stability AI", "Syntx.AI",
+              "Jev / System One", "Magnific", "Artificial Analysis", "Cline",
+              "CommandCode", "Context7", "Nous Research",
+          }
+
+          def extract(marker, output, title, supplement):
+              matches = [i for i, line in enumerate(source) if line == "# " + marker]
+              if len(matches) != 1:
+                  raise SystemExit(f"Expected exactly one upstream section {marker!r}; found {len(matches)}")
+              start = matches[0]
+              end = next((i for i in range(start + 1, len(source))
+                          if source[i].startswith("# ") and source[i][2:] in headings), len(source))
+              section = source[start:end]
+              rules = [line for line in section if line.strip() and not line.lstrip().startswith("#")]
+              if not rules:
+                  raise SystemExit(f"Upstream section {marker!r} contains no rules")
+              if any("," not in line for line in rules):
+                  raise SystemExit(f"Malformed rule in upstream section {marker!r}")
+              output_lines = [
+                  f"# {title} rules",
+                  f"# Source classification: {marker}",
+                  "# Upstream: YUDIDIFEI/Scripts rule/Loon/AI/AI.list",
+                  f"# Local supplements: rules/AI/{supplement} (merged into AI.list only)",
+                  *section,
+                  "",
+              ]
+              Path(output).write_text("\n".join(output_lines), encoding="utf-8")
+              print(f"{title}: extracted {len(rules)} upstream rules")
+
+          extract("Meta AI / Muse / Llama / SAM", "rules/AI/Muse.list", "Muse", "Muse.manual.list")
+          extract("xAI / Grok / Grokipedia", "rules/AI/Grok.list", "Grok", "Grok.manual.list")
+          PY
 
           # --- Merge into AI.list: upstream Grok/Muse + local manuals, deduplicated ---
           python3 - <<'PY'
@@ -154,6 +183,58 @@ jobs:
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
+          import re
+
+          source_path = Path("/tmp/upstream-ai.list")
+          if not source_path.is_file() or not source_path.stat().st_size:
+              raise SystemExit("Upstream AI source is missing or empty")
+          source = source_path.read_text(encoding="utf-8").splitlines()
+          headings = {
+              "OpenAI / ChatGPT / Codex / Sora / Sites / Crixet", "Anthropic / Claude",
+              "Google Gemini / Gemma / Workspace / AI Studio / NotebookLM / Code Assist",
+              "GitHub Copilot / GitHub Models", "Perplexity", "xAI / Grok / Grokipedia",
+              "Poe", "Cursor", "Windsurf / Codeium", "JetBrains AI", "Hugging Face",
+              "Groq", "Cerebras", "ElevenLabs", "Microsoft Copilot", "Mistral / Le Chat",
+              "Cohere", "Midjourney", "OpenRouter", "Meta AI / Muse / Llama / SAM",
+              "Civitai", "Suno", "Runway", "Character.AI", "Stability AI", "Syntx.AI",
+              "Jev / System One", "Magnific", "Artificial Analysis", "Cline",
+              "CommandCode", "Context7", "Nous Research",
+          }
+
+          def normalize(line):
+              return "".join(line.split()).lower()
+
+          def upstream_rules(marker):
+              matches = [i for i, line in enumerate(source) if line == "# " + marker]
+              if len(matches) != 1:
+                  raise SystemExit(f"Expected exactly one upstream section {marker!r}; found {len(matches)}")
+              start = matches[0] + 1
+              end = next((i for i in range(start, len(source))
+                          if source[i].startswith("# ") and source[i][2:] in headings), len(source))
+              return [line.strip() for line in source[start:end]
+                      if line.strip() and not line.lstrip().startswith("#")]
+
+          for marker, filename in (
+              ("Meta AI / Muse / Llama / SAM", "AI/Muse.list"),
+              ("xAI / Grok / Grokipedia", "AI/Grok.list"),
+          ):
+              actual = [line.strip() for line in (Path("rules") / filename).read_text(encoding="utf-8").splitlines()
+                        if line.strip() and not line.lstrip().startswith("#")]
+              expected = upstream_rules(marker)
+              if [normalize(x) for x in actual] != [normalize(x) for x in expected]:
+                  raise SystemExit(f"{filename} does not match its complete upstream category: expected {len(expected)}, got {len(actual)}")
+
+          ai_rules = {
+              normalize(line.split("//", 1)[0].strip())
+              for line in Path("rules/AI.list").read_text(encoding="utf-8").splitlines()
+              if line.strip() and not line.lstrip().startswith("#")
+          }
+          for filename in ("AI/Grok.list", "AI/Grok.manual.list", "AI/Muse.list", "AI/Muse.manual.list"):
+              for line in (Path("rules") / filename).read_text(encoding="utf-8").splitlines():
+                  if line.strip() and not line.lstrip().startswith("#"):
+                      if normalize(line.split("//", 1)[0].strip()) not in ai_rules:
+                          raise SystemExit(f"AI.list is missing a rule from {filename}: {line}")
+
           for name in ("AI.list", "AI/Muse.list", "AI/Grok.list"):
               path = Path("rules") / name
               if not path.is_file() or path.stat().st_size == 0:
