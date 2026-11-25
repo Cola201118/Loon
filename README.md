@@ -8,6 +8,7 @@
 |---|---|
 | Apple | [Apple.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Apple.list) |
 | China | [China.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/China.list) |
+| Proxy | [Proxy.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Proxy.list) |
 
 ## 上游规则来源
 
@@ -28,7 +29,14 @@
 | China ASN | [ChinaASN.list](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/ChinaASN/ChinaASN.list) |
 | LAN | [Lan.list](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Lan/Lan.list) |
 
-仓库通过 GitHub Actions 定期同步上游规则，并生成合并订阅。
+### Proxy
+
+| 本地镜像文件 | 上游链接 |
+|---|---|
+| Proxy source | [Proxy.list](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Proxy/Proxy.list) |
+| Proxy Domain | [Proxy_Domain.list](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Proxy/Proxy_Domain.list) |
+
+仓库通过 GitHub Actions 定期同步上游规则，并生成合并订阅。Proxy 的合并订阅为 `rules/Proxy.list`；上游原文件分别保存在 `rules/Proxy_Source.list` 和 `rules/Proxy_Domain.list`。
 
 ## 感谢
 

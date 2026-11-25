@@ -1,0 +1,120 @@
+name: Sync upstream Proxy rules
+
+on:
+  push:
+    paths:
+      - ".github/workflows/sync-proxy-rules.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "43 */6 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download and merge upstream Loon rules
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p rules
+          python3 <<'PY'
+          from datetime import datetime, timezone
+          from urllib.request import urlopen
+
+          sources = {
+              "Proxy_Source.list": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Proxy/Proxy.list",
+              "Proxy_Domain.list": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Proxy/Proxy_Domain.list",
+          }
+
+          rules = []
+          source_counts = {}
+
+          for name, url in sources.items():
+              with urlopen(url, timeout=90) as response:
+                  content = response.read().decode("utf-8")
+
+              # Keep the exact upstream file as a separate mirror.
+              with open("rules/" + name, "w", encoding="utf-8", newline="\n") as raw_file:
+                  raw_file.write(content)
+
+              entries = [
+                  line.strip()
+                  for line in content.splitlines()
+                  if line.strip() and not line.lstrip().startswith("#")
+              ]
+
+              # Proxy_Domain.list contains domain-set entries rather than Loon rules.
+              # Convert leading-dot entries to suffix matches and bare entries to exact matches.
+              if name == "Proxy_Domain.list":
+                  entries = [
+                      "DOMAIN-SUFFIX," + line[1:] if line.startswith(".")
+                      else "DOMAIN," + line
+                      for line in entries
+                  ]
+
+              source_counts[name] = len(entries)
+              rules.extend(entries)
+
+          def rule_key(line):
+              parts = [part.strip() for part in line.split(",")]
+              kind = parts[0].upper()
+              value = parts[1] if len(parts) > 1 else ""
+              if kind != "USER-AGENT":
+                  value = value.casefold()
+              options = tuple(part.casefold() for part in parts[2:])
+              return (kind, value, options)
+
+          unique_by_key = {}
+          for line in rules:
+              unique_by_key.setdefault(rule_key(line), line)
+          unique = list(unique_by_key.values())
+          unique.sort(key=lambda line: (
+              line.split(",", 1)[0].upper(),
+              line.split(",", 1)[1].casefold()
+                  if "," in line and not line.startswith("USER-AGENT,")
+                  else (line.split(",", 1)[1] if "," in line else ""),
+              line.casefold(),
+          ))
+
+          generated = [
+              "# NAME: Proxy",
+              "# SOURCE: blackmatrix7/ios_rule_script (Loon)",
+              "# UPDATED: " + datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
+              "# INPUT TOTAL: " + str(len(rules)),
+              "# DEDUPLICATED: " + str(len(rules) - len(unique)),
+              "# TOTAL: " + str(len(unique)),
+              "# SOURCES: Proxy_Source.list + Proxy_Domain.list",
+              "# Proxy_Domain entries converted to DOMAIN / DOMAIN-SUFFIX rules",
+              "",
+              *unique,
+              "",
+          ]
+
+          with open("rules/Proxy.list", "w", encoding="utf-8", newline="\n") as output:
+              output.write("\n".join(generated))
+
+          print("Source counts:", source_counts)
+          print("Input rules:", len(rules))
+          print("Duplicates removed:", len(rules) - len(unique))
+          print("Final rules:", len(unique))
+          PY
+
+      - name: Commit changes when needed
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rules/Proxy_Source.list rules/Proxy_Domain.list rules/Proxy.list
+          if git diff --cached --quiet; then
+            echo "No upstream changes."
+            exit 0
+          fi
+          git commit -m "Sync upstream Proxy rules"
+          git push
