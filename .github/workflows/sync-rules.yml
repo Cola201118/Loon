@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: loon-rules-sync-main
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -23,6 +27,9 @@ jobs:
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/Kianuni/AppleFlow/main/rules/surge/Siri-Direct.list" -o rules/Siri.list
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/Kianuni/AppleFlow/main/rules/surge/Apple-APNs-Direct.list" -o rules/Apple-APNs.list
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/o-ocn/loon-rules/main/dist/Apple-Direct.lsr" -o rules/Apple.lsr
+          test -s rules/Siri.list
+          test -s rules/Apple-APNs.list
+          test -s rules/Apple.lsr
           {
             echo "# Apple rules (deduplicated)"
             echo "# Generated from the three upstream sources below."
@@ -60,6 +67,8 @@ jobs:
           set -euo pipefail
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/poohyeban/loon-rules/main/rules/OpenAI/OpenAI-NoResolve.list" -o rules/OpenAI-NoResolve.list
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/VPSDance/ai-proxy-rules/main/rules/loon/google-ai.list" -o rules/Gemini.list
+          test -s rules/OpenAI-NoResolve.list
+          test -s rules/Gemini.list
           {
             echo "# AI rules (OpenAI + Gemini + Grok + Muse, deduplicated)"
             echo "# OpenAI source preserves no-resolve IP rules."
@@ -89,6 +98,7 @@ jobs:
         run: |
           set -euo pipefail
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/AI/AI.list" -o /tmp/upstream-ai.list
+          test -s /tmp/upstream-ai.list
 
           # --- Muse: upstream extract only (manual stays in Muse.manual.list) ---
           {
@@ -172,4 +182,5 @@ jobs:
             exit 0
           fi
           git commit -m "Sync upstream Apple rules"
+          git pull --rebase origin main
           git push
