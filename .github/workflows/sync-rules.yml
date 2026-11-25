@@ -88,18 +88,39 @@ jobs:
         run: |
           set -euo pipefail
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/AI/AI.list" -o /tmp/upstream-ai.list
+
+          # --- Muse: upstream extract + local manual ---
           {
             echo "# Muse rules"
             echo "# Source classification: Meta AI / Muse / Llama / SAM"
             echo "# Upstream: YUDIDIFEI/Scripts rule/Loon/AI/AI.list"
             awk 'BEGIN { found=0; active=0 } /^# Meta AI \/ Muse \/ Llama \/ SAM$/ { found=1; active=1 } active { if ($0 == "" && found) exit; print } END { if (!found) exit 2 }' /tmp/upstream-ai.list
           } > rules/Muse.list
+          if [ -f rules/Muse.manual.list ]; then
+            {
+              echo
+              echo "# Manual supplement (not from upstream, preserved by workflow)"
+              echo "# Source: rules/Muse.manual.list"
+              # Keep only real rules (skip comments / blank lines)
+              grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|IP-CIDR|IP-CIDR6|PROCESS-NAME|USER-AGENT)' rules/Muse.manual.list || true
+            } >> rules/Muse.list
+          fi
+
+          # --- Grok: upstream extract + local manual ---
           {
             echo "# Grok rules"
             echo "# Source classification: xAI / Grok / Grokipedia"
             echo "# Upstream: YUDIDIFEI/Scripts rule/Loon/AI/AI.list"
             awk 'BEGIN { found=0; active=0 } /^# xAI \/ Grok \/ Grokipedia$/ { found=1; active=1 } active { if ($0 == "" && found) exit; print } END { if (!found) exit 2 }' /tmp/upstream-ai.list
           } > rules/Grok.list
+          if [ -f rules/Grok.manual.list ]; then
+            {
+              echo
+              echo "# Manual supplement (not from upstream, preserved by workflow)"
+              echo "# Source: rules/Grok.manual.list"
+              grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|IP-CIDR|IP-CIDR6|PROCESS-NAME|USER-AGENT)' rules/Grok.manual.list || true
+            } >> rules/Grok.list
+          fi
 
 
       - name: Merge B7 Steam rules into Proxy
