@@ -84,9 +84,22 @@ jobs:
               options = tuple(part.casefold() for part in parts[2:])
               return (kind, value, options)
 
+          # AI.list and Apple.list have higher priority in the user's Loon config.
+          # Keep their rules in their own collections and remove exact duplicates from Proxy.
+          preferred_keys = set()
+          for preferred_path in ("rules/AI.list", "rules/Apple.list"):
+              with open(preferred_path, encoding="utf-8") as preferred_file:
+                  for preferred_line in preferred_file:
+                      preferred_line = preferred_line.strip()
+                      if preferred_line and not preferred_line.startswith("#"):
+                          preferred_keys.add(rule_key(preferred_line))
+
           unique_by_key = {}
           for line in rules:
-              unique_by_key.setdefault(rule_key(line), line)
+              key = rule_key(line)
+              if key in preferred_keys:
+                  continue
+              unique_by_key.setdefault(key, line)
           unique = list(unique_by_key.values())
           if not unique:
               raise RuntimeError("Generated rule list is empty")
@@ -155,6 +168,18 @@ jobs:
               return (kind, value, tuple(part.casefold() for part in parts[2:]))
           if len({key(line) for line in rules}) != len(rules):
               raise SystemExit("Proxy.list contains duplicate rules")
+          preferred = set()
+          for preferred_path in ("rules/AI.list", "rules/Apple.list"):
+              preferred_file = Path(preferred_path)
+              if not preferred_file.is_file() or not preferred_file.stat().st_size:
+                  raise SystemExit(f"Missing or empty preferred rule list: {preferred_path}")
+              for raw in preferred_file.read_text(encoding="utf-8").splitlines():
+                  line = raw.strip()
+                  if line and not line.startswith("#"):
+                      preferred.add(key(line))
+          overlap = [line for line in rules if key(line) in preferred]
+          if overlap:
+              raise SystemExit(f"Proxy.list contains rules reserved for AI/Apple: {overlap[:10]}")
           match = re.search(r"^# TOTAL: (\d+)$", "\n".join(lines), re.M)
           if not match or int(match.group(1)) != len(rules):
               raise SystemExit(f"Proxy.list # TOTAL mismatch: actual {len(rules)}")
