@@ -16,7 +16,7 @@
 |---|---|
 | AI（OpenAI + Gemini + Muse） | [AI.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/AI.list) |
 
-上游来源：`poohyeban/loon-rules` 的 `OpenAI/OpenAI-NoResolve.list` 与 `VPSDance/ai-proxy-rules` 的 `rules/loon/google-ai.list`。仓库会随现有 GitHub Actions 每 6 小时检查并同步，合并时按规则内容去重，保留 OpenAI IP 规则的 `no-resolve`。AI.list 还包含 Muse、Grok 的上游规则（随 Gemini 上游带入，同步后仍在），以及 Muse 手动补充的 6 条规则（来自本地维护的 rules/Muse.manual.list，同步后由 workflow 重新合并）。
+上游来源：`poohyeban/loon-rules` 的 `OpenAI/OpenAI-NoResolve.list` 与 `VPSDance/ai-proxy-rules` 的 `rules/loon/google-ai.list`。仓库会随现有 GitHub Actions 每 6 小时检查并同步，合并时按规则内容去重，保留 OpenAI IP 规则的 `no-resolve`。AI.list 还包含 Muse、Grok 的上游规则（随 Gemini 上游带入，同步后仍在），以及 Muse 手动补充的 6 条规则（来自本地维护的 rules/Muse.manual.list，直接合并进 AI.list）。
 
 ## 独立 AI 服务订阅
 
@@ -26,7 +26,7 @@
 | Muse 手动补充（本地维护） | [Muse.manual.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Muse.manual.list) | 6 |
 | Grok（xAI / Grok / Grokipedia 分类） | [Grok.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Grok.list) | 5 |
 
-Muse 与 Grok 的上游规则也包含在 AI.list 中，仍保留独立订阅文件；两份独立文件不与 OpenAI、Gemini 或彼此合并。上游采用 YUDIDIFEI/Scripts 的 Loon AI 分类清单；GitHub Actions 每 6 小时同步并按分类提取。Muse 分类按上游原始分组，包含 Meta AI、Muse、Llama 与 SAM 相关域名。Muse.list 目前为上游 13 条，Grok.list 为上游 5 条。Muse 补齐的 6 条只在本地的 rules/Muse.manual.list 中维护，不直接写进 Muse.list；同步时 workflow 会把这 6 条追加回 Muse.list，并合并进 AI.list。
+Muse 与 Grok 的上游规则也包含在 AI.list 中，仍保留独立订阅文件；两份独立文件不与 OpenAI、Gemini 或彼此合并。上游采用 YUDIDIFEI/Scripts 的 Loon AI 分类清单；GitHub Actions 每 6 小时同步并按分类提取。Muse 分类按上游原始分组，包含 Meta AI、Muse、Llama 与 SAM 相关域名。Muse.list 目前为上游 13 条，Grok.list 为上游 5 条。Muse 补齐的 6 条只在本地的 rules/Muse.manual.list 中维护，直接合并进 AI.list，不写进 Muse.list；Muse.list 始终只含上游规则。
 
 ## 上游规则来源
 
