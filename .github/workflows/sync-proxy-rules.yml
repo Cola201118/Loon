@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: loon-rules-sync-main
+  group: loon-rules-sync-${{ github.workflow }}
   cancel-in-progress: false
 
 jobs:
@@ -172,5 +172,14 @@ jobs:
             exit 0
           fi
           git commit -m "Sync upstream Proxy rules"
-          git pull --rebase origin main
-          git push
+          for attempt in 1 2 3 4 5; do
+            if git pull --rebase origin main && git push; then
+              exit 0
+            fi
+            git rebase --abort >/dev/null 2>&1 || true
+            if [ "$attempt" -lt 5 ]; then
+              sleep "$((attempt * 2))"
+            fi
+          done
+          echo "Unable to push rule updates after 5 attempts."
+          exit 1
