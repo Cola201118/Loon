@@ -6,3 +6,17 @@ DOMAIN-SUFFIX,grok.x.com
 DOMAIN-SUFFIX,grokbot.com
 DOMAIN-SUFFIX,grokipedia.com
 DOMAIN-SUFFIX,x.ai
+
+# Manual supplement (not from upstream, preserved by workflow)
+# Source: rules/Grok.manual.list
+DOMAIN-SUFFIX,grokusercontent.com
+DOMAIN,auth.x.ai
+DOMAIN,accounts.x.ai
+DOMAIN,api.x.ai
+DOMAIN,us.api.x.ai
+DOMAIN,cli-chat-proxy.grok.com
+DOMAIN,code.grok.com
+DOMAIN,assets.grok.com
+DOMAIN,management-api.x.ai
+DOMAIN,console.x.ai
+DOMAIN,status.x.ai
