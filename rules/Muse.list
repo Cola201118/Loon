@@ -1,0 +1,16 @@
+# Muse rules
+# Source classification: Meta AI / Muse / Llama / SAM
+# Upstream: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/AI/AI.list
+DOMAIN,accountscenter.meta.com
+DOMAIN,ai.meta.com
+DOMAIN,aidemos.meta.com
+DOMAIN,ar.graph.meta.com
+DOMAIN,auth.meta.com
+DOMAIN,meta.graph.meta.com
+DOMAIN,sam2.metademolab.com
+DOMAIN,www.aidemos.meta.com
+DOMAIN-SUFFIX,llama.com
+DOMAIN-SUFFIX,meta.ai
+DOMAIN-SUFFIX,metaaiusercontent.com
+DOMAIN-SUFFIX,metaaivm.com
+DOMAIN-SUFFIX,muse.ai
