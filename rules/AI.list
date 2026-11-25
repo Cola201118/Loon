@@ -5,8 +5,7 @@
 # DOMAIN: 44
 # DOMAIN-SUFFIX: 66
 # IP-CIDR: 446
-# PROCESS-NAME: 2
-# TOTAL: 558
+# TOTAL: 556
 
 # AI rules (OpenAI + Gemini + Grok + Muse, deduplicated and sorted)
 DOMAIN,accounts.x.ai
@@ -565,5 +564,3 @@ IP-CIDR,9.205.250.159/32,no-resolve
 IP-CIDR,9.205.91.41/32,no-resolve
 IP-CIDR,9.205.94.183/32,no-resolve
 IP-CIDR,9.205.94.184/32,no-resolve
-PROCESS-NAME,Antigravity
-PROCESS-NAME,Antigravity.exe
