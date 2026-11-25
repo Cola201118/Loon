@@ -1,8 +1,15 @@
 # NAME: Proxy
 # SOURCE: blackmatrix7/ios_rule_script (Loon)
-# UPDATED: 2026-11-25 15:33:52 UTC
+# UPDATED: 2026-11-25 15:40:35 UTC
 # INPUT TOTAL: 7868
 # DEDUPLICATED: 143
+# DOMAIN: 11
+# DOMAIN-KEYWORD: 33
+# DOMAIN-SUFFIX: 7539
+# IP-ASN: 5
+# IP-CIDR: 119
+# IP-CIDR6: 7
+# USER-AGENT: 11
 # TOTAL: 7725
 # SOURCES: Proxy_Source.list + Proxy_Domain.list + GitHub.list + Google.list + Telegram.list + Instagram.list + Twitter.list + Steam.list
 # App rules merged: GitHub + Google + Telegram + Instagram + Twitter + Steam
