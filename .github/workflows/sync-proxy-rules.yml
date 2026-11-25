@@ -107,10 +107,8 @@ jobs:
           if malformed:
               raise RuntimeError(f"Malformed Loon rules detected: {malformed[:5]}")
           unique.sort(key=lambda line: (
-              line.split(",", 1)[0].upper(),
-              line.split(",", 1)[1].casefold()
-                  if "," in line and not line.startswith("USER-AGENT,")
-                  else (line.split(",", 1)[1] if "," in line else ""),
+              {"DOMAIN": 0, "DOMAIN-SUFFIX": 1, "DOMAIN-KEYWORD": 2, "USER-AGENT": 3, "IP-ASN": 4, "IP-CIDR": 5, "IP-CIDR6": 6}.get(line.split(",", 1)[0].strip().upper(), 99),
+              line.split(",", 1)[1].casefold() if "," in line and not line.startswith("USER-AGENT,") else (line.split(",", 1)[1] if "," in line else ""),
               line.casefold(),
           ))
 
