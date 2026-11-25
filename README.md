@@ -5,3 +5,6 @@
 - [Kianuni / AppleFlow](https://github.com/Kianuni/AppleFlow)
 - [o-ocn / loon-rules](https://github.com/o-ocn/loon-rules)
 - [blackmatrix7 / ios_rule_script](https://github.com/blackmatrix7/ios_rule_script)
+- [poohyeban / loon-rules](https://github.com/poohyeban/loon-rules)
+- [VPSDance / ai-proxy-rules](https://github.com/VPSDance/ai-proxy-rules)
+- [YUDIDIFEI / Scripts](https://github.com/YUDIDIFEI/Scripts)
