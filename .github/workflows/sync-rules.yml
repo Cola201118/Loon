@@ -1,4 +1,4 @@
-name: Sync upstream Apple rules
+name: Sync Apple and AI rules
 
 on:
   push:
