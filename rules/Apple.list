@@ -1,3 +1,7 @@
+# NAME: Apple
+# GENERATED TOTAL: 189
+# GENERATED SOURCES: Siri.list + Apple-APNs.list + Apple.lsr
+
 # Apple rules (deduplicated)
 # Generated from the three upstream sources below.
 # ===== rules/Siri.list =====
