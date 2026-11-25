@@ -166,7 +166,7 @@ jobs:
               expected[kind] = expected.get(kind, 0) + 1
           header_counts = {}
           for raw in lines:
-              match = re.match(r"^# ([A-Z0-9-]+): (\\d+)$", raw)
+              match = re.match(r"^# ([A-Z0-9-]+): (\d+)$", raw)
               if match and match.group(1) not in ("NAME", "TOTAL", "INPUT", "DEDUPLICATED"):
                   header_counts[match.group(1)] = int(match.group(2))
           if header_counts != expected:

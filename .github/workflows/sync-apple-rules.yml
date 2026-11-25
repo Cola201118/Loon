@@ -116,7 +116,7 @@ jobs:
           expected = Counter(line.split(",", 1)[0].strip().upper() for line in rules)
           header_counts = {}
           for raw in path.read_text(encoding="utf-8").splitlines():
-              match = re.match(r"^# ([A-Z0-9-]+): (\\d+)$", raw)
+              match = re.match(r"^# ([A-Z0-9-]+): (\d+)$", raw)
               if match and match.group(1) not in ("NAME", "TOTAL", "GENERATED"):
                   header_counts[match.group(1)] = int(match.group(2))
           if header_counts != dict(expected):
