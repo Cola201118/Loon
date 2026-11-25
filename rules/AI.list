@@ -1,9 +1,13 @@
 # NAME: AI
+# SOURCE: OpenAI + Gemini + Grok + Muse
+# UPDATED: 2026-11-25 15:48:28 UTC
+# SOURCES: OpenAI-NoResolve.list + Gemini.list + Grok.list + Grok.manual.list + Muse.list + Muse.manual.list
 # DOMAIN: 44
 # DOMAIN-SUFFIX: 66
 # IP-CIDR: 446
 # PROCESS-NAME: 2
 # TOTAL: 558
+
 # AI rules (OpenAI + Gemini + Grok + Muse, deduplicated)
 # OpenAI source preserves no-resolve IP rules.
 # Grok/Muse sections are appended after standalone extract.
