@@ -1,7 +1,7 @@
 # Muse rules
 # Source classification: Meta AI / Muse / Llama / SAM
 # Upstream: YUDIDIFEI/Scripts rule/Loon/AI/AI.list
-# Local supplements: rules/Muse.manual.list (merged into AI.list only)
+# Local supplements: rules/AI/Muse.manual.list (merged into AI.list only)
 # Meta AI / Muse / Llama / SAM
 DOMAIN,accountscenter.meta.com
 DOMAIN,ai.meta.com

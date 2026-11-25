@@ -1,3 +1,5 @@
+# NAME: AI
+# TOTAL: 558
 # AI rules (OpenAI + Gemini + Grok + Muse, deduplicated)
 # OpenAI source preserves no-resolve IP rules.
 # Grok/Muse sections are appended after standalone extract.
