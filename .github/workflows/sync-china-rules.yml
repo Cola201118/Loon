@@ -1,0 +1,102 @@
+name: Sync upstream China rules
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "37 */6 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download and merge upstream Loon rules
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p rules
+          python3 <<'PY'
+          from datetime import datetime, timezone
+          from urllib.request import urlopen
+
+          sources = {
+              "ChinaMax.list": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/ChinaMax/ChinaMax.list",
+              "ChinaMax_Domain.list": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/ChinaMax/ChinaMax_Domain.list",
+              "ChinaASN.list": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/ChinaASN/ChinaASN.list",
+              "Lan.list": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Lan/Lan.list",
+          }
+
+          rules = []
+          source_counts = {}
+
+          for name, url in sources.items():
+              request = urlopen(url, timeout=90)
+              text = request.read().decode("utf-8")
+              entries = [
+                  line.strip()
+                  for line in text.splitlines()
+                  if line.strip() and not line.lstrip().startswith("#")
+              ]
+
+              # ChinaMax_Domain.list is a domain-set file:
+              # leading-dot entries are suffix matches; other entries are exact domains.
+              if name == "ChinaMax_Domain.list":
+                  entries = [
+                      "DOMAIN-SUFFIX," + line[1:] if line.startswith(".")
+                      else "DOMAIN," + line
+                      for line in entries
+                  ]
+
+              source_counts[name] = len(entries)
+              rules.extend(entries)
+
+          # Exact-line deduplication preserves case-sensitive USER-AGENT values
+          # and keeps meaningful rule flags such as no-resolve.
+          unique = list(dict.fromkeys(rules))
+          unique.sort(key=lambda line: (
+              line.split(",", 1)[0].upper(),
+              line.split(",", 1)[1].casefold() if "," in line else "",
+              line.casefold(),
+          ))
+
+          generated = [
+              "# NAME: China-Direct",
+              "# SOURCE: blackmatrix7/ios_rule_script (Loon)",
+              "# UPDATED: " + datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
+              "# INPUT TOTAL: " + str(len(rules)),
+              "# DEDUPLICATED: " + str(len(rules) - len(unique)),
+              "# TOTAL: " + str(len(unique)),
+              "# SOURCES: ChinaMax.list + ChinaMax_Domain.list + ChinaASN.list + Lan.list",
+              "# ChinaMax_Domain entries converted to DOMAIN / DOMAIN-SUFFIX rules",
+              "",
+              *unique,
+              "",
+          ]
+
+          with open("rules/China-Direct.list", "w", encoding="utf-8", newline="\n") as f:
+              f.write("\n".join(generated))
+
+          print("Source counts:", source_counts)
+          print("Input rules:", len(rules))
+          print("Duplicates removed:", len(rules) - len(unique))
+          print("Final rules:", len(unique))
+          PY
+
+      - name: Commit changes when needed
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rules/China-Direct.list
+          if git diff --cached --quiet; then
+            echo "No upstream changes."
+            exit 0
+          fi
+          git commit -m "Sync upstream China rules"
+          git push
