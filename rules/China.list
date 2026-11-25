@@ -1,8 +1,7 @@
 # NAME: China
 # SOURCE: blackmatrix7/ios_rule_script (Loon)
-# UPDATED: 2026-11-25 15:40:30 UTC
-# INPUT TOTAL: 124264
-# DEDUPLICATED: 4
+# UPDATED: 2026-11-25 15:46:56 UTC
+# SOURCES: ChinaMax.list + ChinaMax_Domain.list + ChinaASN.list + Lan.list
 # DOMAIN: 280
 # DOMAIN-KEYWORD: 13
 # DOMAIN-SUFFIX: 110319
@@ -11,7 +10,6 @@
 # IP-CIDR6: 4316
 # USER-AGENT: 65
 # TOTAL: 124260
-# SOURCES: ChinaMax.list + ChinaMax_Domain.list + ChinaASN.list + Lan.list
 # ChinaMax_Domain entries converted to DOMAIN / DOMAIN-SUFFIX rules
 
 DOMAIN,1-fss24-s0.streamhoster.com
