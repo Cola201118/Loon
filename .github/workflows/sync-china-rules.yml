@@ -174,8 +174,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add rules/China/ChinaMax.list rules/China/ChinaMax_Domain.list rules/China/ChinaASN.list rules/China/Lan.list rules/China.list
-          if git diff --cached --quiet; then
-            echo "No upstream changes."
+          if git diff --cached -I '^# UPDATED:' --quiet; then
+            echo "No upstream rule changes (timestamp-only differences ignored)."
+            git restore --source=HEAD --staged --worktree -- rules/China/ChinaMax.list rules/China/ChinaMax_Domain.list rules/China/ChinaASN.list rules/China/Lan.list rules/China.list
             exit 0
           fi
           git commit -m "Sync upstream China rules"
