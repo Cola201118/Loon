@@ -10,6 +10,14 @@
 | China | [China.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/China.list) |
 | Proxy | [Proxy.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Proxy.list) |
 
+## AI 合并订阅
+
+| 规则 | 订阅链接 |
+|---|---|
+| AI（OpenAI + Gemini） | [AI.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/AI.list) |
+
+上游来源：`poohyeban/loon-rules` 的 `OpenAI/OpenAI-NoResolve.list` 与 `VPSDance/ai-proxy-rules` 的 `rules/loon/google-ai.list`。仓库会随现有 GitHub Actions 每 6 小时检查并同步，合并时按规则内容去重，保留 OpenAI IP 规则的 `no-resolve`。
+
 ## 上游规则来源
 
 ### Apple
