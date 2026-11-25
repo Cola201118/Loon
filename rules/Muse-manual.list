@@ -1,9 +1,0 @@
-# Muse manual supplement rules
-# Not from upstream; the sync workflow only regenerates rules/Muse.list and does not touch this file.
-# Add this file as an extra subscription in Loon alongside rules/Muse.list.
-DOMAIN-SUFFIX,meta.com
-DOMAIN-SUFFIX,museai.com
-DOMAIN-SUFFIX,ecto1.ai
-DOMAIN-SUFFIX,llamameta.net
-DOMAIN-SUFFIX,metademolab.com
-DOMAIN,ep7.facebook.com
