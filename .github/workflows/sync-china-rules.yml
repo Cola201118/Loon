@@ -86,6 +86,11 @@ jobs:
           for line in rules:
               unique_by_key.setdefault(rule_key(line), line)
           unique = list(unique_by_key.values())
+          if not unique:
+              raise RuntimeError("Generated rule list is empty")
+          malformed = [line for line in unique if "," not in line]
+          if malformed:
+              raise RuntimeError(f"Malformed Loon rules detected: {malformed[:5]}")
           unique.sort(key=lambda line: (
               line.split(",", 1)[0].upper(),
               line.split(",", 1)[1].casefold() if "," in line and not line.startswith("USER-AGENT,") else (line.split(",", 1)[1] if "," in line else ""),
