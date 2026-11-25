@@ -109,7 +109,6 @@ jobs:
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Steam/Steam.list" -o /tmp/b7-steam.list
           python3 - <<'PY'
           from pathlib import Path
-          import re
 
           path = Path("rules/Proxy.list")
           content = path.read_text(encoding="utf-8")
@@ -117,14 +116,20 @@ jobs:
           if marker in content:
               content = content.split(marker, 1)[0].rstrip()
           lines = content.splitlines()
+
           def number(name):
-              match = re.search(r"^# " + re.escape(name) + r": (\\d+)$", content, re.M)
-              return int(match.group(1)) if match else 0
+              prefix = f"# {name}: "
+              for line in lines[:20]:
+                  if line.startswith(prefix):
+                      return int(line[len(prefix):])
+              return 0
+
           def is_rule(line):
               value = line.strip()
               return bool(value) and not value.startswith("#")
+
           def key(line):
-              return re.sub(r"\\s+", "", line).lower()
+              return "".join(line.lower().split())
 
           old_steam_input = number("STEAM INPUT")
           old_steam_dedup = number("STEAM DEDUPLICATED")
@@ -133,6 +138,7 @@ jobs:
           base_rules = [line for line in lines[10:] if is_rule(line)]
           existing = {key(line) for line in base_rules}
           steam_lines = [line.strip() for line in Path("/tmp/b7-steam.list").read_text(encoding="utf-8").splitlines() if is_rule(line)]
+
           added = []
           seen = set()
           duplicates = 0
@@ -154,10 +160,11 @@ jobs:
                   lines[i] = f"# TOTAL: {total}"
               elif line.startswith("# SOURCES:") and "B7 Steam.list" not in line:
                   lines[i] = line + " + B7 Steam.list"
+
           lines = [line for line in lines if not line.startswith("# STEAM INPUT:") and not line.startswith("# STEAM DEDUPLICATED:")]
           lines.insert(10, f"# STEAM INPUT: {len(steam_lines)}")
           lines.insert(11, f"# STEAM DEDUPLICATED: {duplicates}")
-          output = "\\n".join(lines).rstrip() + "\\n\\n" + marker + "\\n" + "\\n".join(added) + "\\n"
+          output = "\n".join(lines).rstrip() + "\n\n" + marker + "\n" + "\n".join(added) + "\n"
           path.write_text(output, encoding="utf-8")
           print(f"Steam source: {len(steam_lines)}; duplicates: {duplicates}; added: {len(added)}; Proxy total: {total}")
           PY
