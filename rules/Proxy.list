@@ -1,11 +1,11 @@
 # NAME: Proxy
 # SOURCE: blackmatrix7/ios_rule_script (Loon)
-# UPDATED: 2026-11-25 13:56:43 UTC
-# INPUT TOTAL: 7799
-# DEDUPLICATED: 137
-# TOTAL: 7662
-# SOURCES: Proxy_Source.list + Proxy_Domain.list + GitHub.list + Google.list + Telegram.list + Instagram.list + Twitter.list
-# App rules merged: GitHub + Google + Telegram + Instagram + Twitter
+# UPDATED: 2026-11-25 15:07:44 UTC
+# INPUT TOTAL: 7868
+# DEDUPLICATED: 143
+# TOTAL: 7725
+# SOURCES: Proxy_Source.list + Proxy_Domain.list + GitHub.list + Google.list + Telegram.list + Instagram.list + Twitter.list + Steam.list
+# App rules merged: GitHub + Google + Telegram + Instagram + Twitter + Steam
 # Proxy_Domain entries converted to DOMAIN / DOMAIN-SUFFIX rules
 
 DOMAIN,api.imem.app
@@ -43,6 +43,9 @@ DOMAIN-KEYWORD,recaptcha
 DOMAIN-KEYWORD,sci-hub
 DOMAIN-KEYWORD,skydrive
 DOMAIN-KEYWORD,spotify
+DOMAIN-KEYWORD,steambroadcast
+DOMAIN-KEYWORD,steamstore
+DOMAIN-KEYWORD,steamuserimages
 DOMAIN-KEYWORD,telegram
 DOMAIN-KEYWORD,ttvnw
 DOMAIN-KEYWORD,twitter
@@ -1136,7 +1139,10 @@ DOMAIN-SUFFIX,cdcparty.com
 DOMAIN-SUFFIX,cdef.org
 DOMAIN-SUFFIX,cdig.info
 DOMAIN-SUFFIX,cdjp.org
+DOMAIN-SUFFIX,cdn-ali.content.steamchina.com
+DOMAIN-SUFFIX,cdn-qc.content.steamchina.com
 DOMAIN-SUFFIX,cdn-telegram.org
+DOMAIN-SUFFIX,cdn-ws.content.steamchina.com
 DOMAIN-SUFFIX,cdn.angruo.com
 DOMAIN-SUFFIX,cdn.segment.com
 DOMAIN-SUFFIX,cdnews.com.tw
@@ -1502,6 +1508,7 @@ DOMAIN-SUFFIX,cryptographyengineering.com
 DOMAIN-SUFFIX,cs4hs.com
 DOMAIN-SUFFIX,csc.com.tw
 DOMAIN-SUFFIX,csdparty.com
+DOMAIN-SUFFIX,csgo.wmsj.cn
 DOMAIN-SUFFIX,csis.org
 DOMAIN-SUFFIX,csmonitor.com
 DOMAIN-SUFFIX,csuchen.de
@@ -1709,6 +1716,8 @@ DOMAIN-SUFFIX,dizhuzhishang.com
 DOMAIN-SUFFIX,djangosnippets.org
 DOMAIN-SUFFIX,djorz.com
 DOMAIN-SUFFIX,dl-laby.jp
+DOMAIN-SUFFIX,dl.steam.clngaa.com
+DOMAIN-SUFFIX,dl.steam.ksyna.com
 DOMAIN-SUFFIX,dler.io
 DOMAIN-SUFFIX,dlive.tv
 DOMAIN-SUFFIX,dlsite.com
@@ -1761,6 +1770,8 @@ DOMAIN-SUFFIX,doosho.com
 DOMAIN-SUFFIX,doourbest.org
 DOMAIN-SUFFIX,dorjeshugden.com
 DOMAIN-SUFFIX,dot.sb
+DOMAIN-SUFFIX,dota2.com
+DOMAIN-SUFFIX,dota2.wmsj.cn
 DOMAIN-SUFFIX,dotgov.gov
 DOMAIN-SUFFIX,dotplane.com
 DOMAIN-SUFFIX,dotsub.com
@@ -1887,6 +1898,7 @@ DOMAIN-SUFFIX,ecimg.tw
 DOMAIN-SUFFIX,ecministry.net
 DOMAIN-SUFFIX,economist.com
 DOMAIN-SUFFIX,ecstart.com
+DOMAIN-SUFFIX,edge.steam-dns.top.comcast.net
 DOMAIN-SUFFIX,edgecastcdn.net
 DOMAIN-SUFFIX,edgekey.net
 DOMAIN-SUFFIX,edgesuite.net
@@ -2032,6 +2044,7 @@ DOMAIN-SUFFIX,ezpeer.com
 DOMAIN-SUFFIX,ezua.com
 DOMAIN-SUFFIX,f-droid.org
 DOMAIN-SUFFIX,f2pool.com
+DOMAIN-SUFFIX,f3b7q2p3.ssl.hwcdn.net
 DOMAIN-SUFFIX,f8.com
 DOMAIN-SUFFIX,f95zone.to
 DOMAIN-SUFFIX,fabric.io
@@ -5873,6 +5886,9 @@ DOMAIN-SUFFIX,sstatic.net
 DOMAIN-SUFFIX,sstm.moe
 DOMAIN-SUFFIX,sstmlt.moe
 DOMAIN-SUFFIX,sstmlt.net
+DOMAIN-SUFFIX,st.dl.bscstorage.net
+DOMAIN-SUFFIX,st.dl.eccdnx.com
+DOMAIN-SUFFIX,st.dl.pinyuncloud.com
 DOMAIN-SUFFIX,st.luluku.pw
 DOMAIN-SUFFIX,stackoverflow.com
 DOMAIN-SUFFIX,stadia.dev
@@ -5898,6 +5914,39 @@ DOMAIN-SUFFIX,stboy.net
 DOMAIN-SUFFIX,stc.com.sa
 DOMAIN-SUFFIX,stcroixmosquito.com
 DOMAIN-SUFFIX,stcroixmosquitoproject.com
+DOMAIN-SUFFIX,steam-api.com
+DOMAIN-SUFFIX,steam-chat.com
+DOMAIN-SUFFIX,steam.apac.qtlglb.com
+DOMAIN-SUFFIX,steam.cdn.on.net
+DOMAIN-SUFFIX,steam.cdn.orcon.net.nz
+DOMAIN-SUFFIX,steam.cdn.slingshot.co.nz
+DOMAIN-SUFFIX,steam.cdn.webra.ru
+DOMAIN-SUFFIX,steam.eca.qtlglb.com
+DOMAIN-SUFFIX,steam.naeu.qtlglb.com
+DOMAIN-SUFFIX,steam.ru.qtlglb.com
+DOMAIN-SUFFIX,steam.tv
+DOMAIN-SUFFIX,steambroadcast.akamaized.net
+DOMAIN-SUFFIX,steamcdn-a.akamaihd.net
+DOMAIN-SUFFIX,steamcommunity-a.akamaihd.net
+DOMAIN-SUFFIX,steamcommunity.com
+DOMAIN-SUFFIX,steamconnecttest.com
+DOMAIN-SUFFIX,steamcontent.tnkjmec.com
+DOMAIN-SUFFIX,steamdeck.com
+DOMAIN-SUFFIX,steamgames.com
+DOMAIN-SUFFIX,steammobile.akamaized.net
+DOMAIN-SUFFIX,steampipe-kr.akamaized.net
+DOMAIN-SUFFIX,steampipe-partner.akamaized.net
+DOMAIN-SUFFIX,steampipe.akamaized.net
+DOMAIN-SUFFIX,steampowered.com
+DOMAIN-SUFFIX,steampowered.com.8686c.com
+DOMAIN-SUFFIX,steamstat.us
+DOMAIN-SUFFIX,steamstatic.com
+DOMAIN-SUFFIX,steamstatic.com.8686c.com
+DOMAIN-SUFFIX,steamstore-a.akamaihd.net
+DOMAIN-SUFFIX,steamunlocked.net
+DOMAIN-SUFFIX,steamusercontent-a.akamaihd.net
+DOMAIN-SUFFIX,steamuserimages-a.akamaihd.net
+DOMAIN-SUFFIX,steamvideo-a.akamaihd.net
 DOMAIN-SUFFIX,steel-storm.com
 DOMAIN-SUFFIX,steemit.com
 DOMAIN-SUFFIX,steganos.com
@@ -6789,6 +6838,7 @@ DOMAIN-SUFFIX,v2raycn.com
 DOMAIN-SUFFIX,v8.dev
 DOMAIN-SUFFIX,v8project.org
 DOMAIN-SUFFIX,valeursactuelles.com
+DOMAIN-SUFFIX,valve.net
 DOMAIN-SUFFIX,valvesoftware.com
 DOMAIN-SUFFIX,van001.com
 DOMAIN-SUFFIX,van698.com
@@ -7142,6 +7192,7 @@ DOMAIN-SUFFIX,wjbk.org
 DOMAIN-SUFFIX,wlx.sowiki.net
 DOMAIN-SUFFIX,wmflabs.org
 DOMAIN-SUFFIX,wmfusercontent.org
+DOMAIN-SUFFIX,wmsjsteam.com
 DOMAIN-SUFFIX,wn.com
 DOMAIN-SUFFIX,wnacg.com
 DOMAIN-SUFFIX,wnacg.org
@@ -7546,9 +7597,11 @@ IP-ASN,59930,no-resolve
 IP-ASN,62014,no-resolve
 IP-ASN,62041,no-resolve
 IP-CIDR,1.201.0.0/24,no-resolve
+IP-CIDR,103.10.124.0/23,no-resolve
 IP-CIDR,103.2.28.0/22,no-resolve
 IP-CIDR,103.246.56.0/22,no-resolve
 IP-CIDR,103.27.148.0/22,no-resolve
+IP-CIDR,103.28.54.0/24,no-resolve
 IP-CIDR,103.4.96.0/22,no-resolve
 IP-CIDR,109.239.140.0/24,no-resolve
 IP-CIDR,110.76.140.0/22,no-resolve
@@ -7574,12 +7627,16 @@ IP-CIDR,13.32.0.0/15,no-resolve
 IP-CIDR,13.35.0.0/17,no-resolve
 IP-CIDR,139.59.210.98/32,no-resolve
 IP-CIDR,14.102.250.18/31,no-resolve
+IP-CIDR,146.66.152.0/24,no-resolve
+IP-CIDR,146.66.155.0/24,no-resolve
 IP-CIDR,147.92.128.0/17,no-resolve
 IP-CIDR,149.154.160.0/20,no-resolve
+IP-CIDR,155.133.224.0/19,no-resolve
 IP-CIDR,157.240.0.0/17,no-resolve
 IP-CIDR,158.85.224.160/27,no-resolve
 IP-CIDR,158.85.46.128/27,no-resolve
 IP-CIDR,158.85.5.192/27,no-resolve
+IP-CIDR,162.254.192.0/21,no-resolve
 IP-CIDR,17.252.156.0/23,no-resolve
 IP-CIDR,172.110.32.0/21,no-resolve
 IP-CIDR,173.192.222.160/27,no-resolve
@@ -7598,9 +7655,11 @@ IP-CIDR,180.163.150.34/32,no-resolve
 IP-CIDR,180.163.151.162/32,no-resolve
 IP-CIDR,180.163.151.34/32,no-resolve
 IP-CIDR,184.173.128.0/17,no-resolve
+IP-CIDR,185.25.180.0/22,no-resolve
 IP-CIDR,185.60.216.0/22,no-resolve
 IP-CIDR,185.76.151.0/24,no-resolve
 IP-CIDR,192.133.76.0/22,no-resolve
+IP-CIDR,192.69.96.0/22,no-resolve
 IP-CIDR,196.55.216.167/32,no-resolve
 IP-CIDR,199.59.148.0/22,no-resolve
 IP-CIDR,199.96.56.0/21,no-resolve
@@ -7614,7 +7673,10 @@ IP-CIDR,203.208.40.0/23,no-resolve
 IP-CIDR,203.208.43.0/24,no-resolve
 IP-CIDR,203.208.50.0/24,no-resolve
 IP-CIDR,204.15.20.0/22,no-resolve
+IP-CIDR,205.196.6.0/24,no-resolve
 IP-CIDR,208.43.0.0/16,no-resolve
+IP-CIDR,208.64.200.0/22,no-resolve
+IP-CIDR,208.78.164.0/22,no-resolve
 IP-CIDR,209.237.192.0/19,no-resolve
 IP-CIDR,216.73.80.0/20,no-resolve
 IP-CIDR,220.181.174.162/32,no-resolve
@@ -7624,6 +7686,7 @@ IP-CIDR,27.0.236.0/22,no-resolve
 IP-CIDR,31.13.24.0/21,no-resolve
 IP-CIDR,31.13.64.0/18,no-resolve
 IP-CIDR,34.224.0.0/12,no-resolve
+IP-CIDR,45.121.184.0/24,no-resolve
 IP-CIDR,45.64.40.0/22,no-resolve
 IP-CIDR,5.28.192.0/18,no-resolve
 IP-CIDR,50.22.198.204/30,no-resolve
