@@ -27,24 +27,24 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p rules
-          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/Kianuni/AppleFlow/main/rules/surge/Siri-Direct.list" -o rules/Siri.list
-          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/Kianuni/AppleFlow/main/rules/surge/Apple-APNs-Direct.list" -o rules/Apple-APNs.list
-          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/o-ocn/loon-rules/main/dist/Apple-Direct.lsr" -o rules/Apple.lsr
-          test -s rules/Siri.list
-          test -s rules/Apple-APNs.list
-          test -s rules/Apple.lsr
+          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/Kianuni/AppleFlow/main/rules/surge/Siri-Direct.list" -o rules/Apple/Siri.list
+          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/Kianuni/AppleFlow/main/rules/surge/Apple-APNs-Direct.list" -o rules/Apple/Apple-APNs.list
+          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/o-ocn/loon-rules/main/dist/Apple-Direct.lsr" -o rules/Apple/Apple.lsr
+          test -s rules/Apple/Siri.list
+          test -s rules/Apple/Apple-APNs.list
+          test -s rules/Apple/Apple.lsr
           {
             echo "# Apple rules (deduplicated)"
             echo "# Generated from the three upstream sources below."
             echo
-            echo "# ===== rules/Siri.list ====="
-            cat rules/Siri.list
+            echo "# ===== rules/Apple/Siri.list ====="
+            cat rules/Apple/Siri.list
             echo
-            echo "# ===== rules/Apple-APNs.list ====="
-            cat rules/Apple-APNs.list
+            echo "# ===== rules/Apple/Apple-APNs.list ====="
+            cat rules/Apple/Apple-APNs.list
             echo
-            echo "# ===== rules/Apple.lsr ====="
-            cat rules/Apple.lsr
+            echo "# ===== rules/Apple/Apple.lsr ====="
+            cat rules/Apple/Apple.lsr
           } | awk '
             {
               original = $0
@@ -112,7 +112,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add rules/Apple.list rules/Siri.list rules/Apple-APNs.list rules/Apple.lsr
+          git add rules/Apple.list rules/Apple/Siri.list rules/Apple/Apple-APNs.list rules/Apple/Apple.lsr
           if git diff --cached --quiet; then
             echo "No upstream changes."
             exit 0

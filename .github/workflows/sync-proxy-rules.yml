@@ -131,7 +131,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add rules/Proxy_Source.list rules/Proxy_Domain.list rules/GitHub.list rules/Google.list rules/Telegram.list rules/Instagram.list rules/Twitter.list rules/Steam.list rules/Proxy.list
+          git add rules/Proxy/Proxy_Source.list rules/Proxy/Proxy_Domain.list rules/Proxy/GitHub.list rules/Proxy/Google.list rules/Proxy/Telegram.list rules/Proxy/Instagram.list rules/Proxy/Twitter.list rules/Proxy/Steam.list rules/Proxy.list
           if git diff --cached --quiet; then
             echo "No upstream changes."
             exit 0

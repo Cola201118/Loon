@@ -26,17 +26,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/poohyeban/loon-rules/main/rules/OpenAI/OpenAI-NoResolve.list" -o rules/OpenAI-NoResolve.list
-          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/VPSDance/ai-proxy-rules/main/rules/loon/google-ai.list" -o rules/Gemini.list
-          test -s rules/OpenAI-NoResolve.list
-          test -s rules/Gemini.list
+          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/poohyeban/loon-rules/main/rules/OpenAI/OpenAI-NoResolve.list" -o rules/AI/OpenAI-NoResolve.list
+          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/VPSDance/ai-proxy-rules/main/rules/loon/google-ai.list" -o rules/AI/Gemini.list
+          test -s rules/AI/OpenAI-NoResolve.list
+          test -s rules/AI/Gemini.list
           {
             echo "# AI rules (OpenAI + Gemini + Grok + Muse, deduplicated)"
             echo "# OpenAI source preserves no-resolve IP rules."
             echo "# Grok/Muse sections are appended after standalone extract."
-            cat rules/OpenAI-NoResolve.list
+            cat rules/AI/OpenAI-NoResolve.list
             echo
-            cat rules/Gemini.list
+            cat rules/AI/Gemini.list
           } | awk '
             {
               original = $0
@@ -66,18 +66,18 @@ jobs:
             echo "# Muse rules"
             echo "# Source classification: Meta AI / Muse / Llama / SAM"
             echo "# Upstream: YUDIDIFEI/Scripts rule/Loon/AI/AI.list"
-            echo "# Local supplements: rules/Muse.manual.list (merged into AI.list only)"
+            echo "# Local supplements: rules/AI/Muse.manual.list (merged into AI.list only)"
             awk 'BEGIN { found=0; active=0 } /^# Meta AI \/ Muse \/ Llama \/ SAM$/ { found=1; active=1 } active { if ($0 == "" && found) exit; print } END { if (!found) exit 2 }' /tmp/upstream-ai.list
-          } > rules/Muse.list
+          } > rules/AI/Muse.list
 
           # --- Grok: upstream extract only (manual stays in Grok.manual.list) ---
           {
             echo "# Grok rules"
             echo "# Source classification: xAI / Grok / Grokipedia"
             echo "# Upstream: YUDIDIFEI/Scripts rule/Loon/AI/AI.list"
-            echo "# Local supplements: rules/Grok.manual.list (merged into AI.list only)"
+            echo "# Local supplements: rules/AI/Grok.manual.list (merged into AI.list only)"
             awk 'BEGIN { found=0; active=0 } /^# xAI \/ Grok \/ Grokipedia$/ { found=1; active=1 } active { if ($0 == "" && found) exit; print } END { if (!found) exit 2 }' /tmp/upstream-ai.list
-          } > rules/Grok.list
+          } > rules/AI/Grok.list
 
           # --- Merge into AI.list: upstream Grok/Muse + local manuals, deduplicated ---
           python3 - <<'PY'
@@ -110,9 +110,9 @@ jobs:
               return out
 
           # Grok: upstream list + local manual (manual is NOT written into Grok.list)
-          grok_added = collect(Path("rules/Grok.list"), Path("rules/Grok.manual.list"))
+          grok_added = collect(Path("rules/AI/Grok.list"), Path("rules/AI/Grok.manual.list"))
           # Muse: same pattern for consistency
-          muse_added = collect(Path("rules/Muse.list"), Path("rules/Muse.manual.list"))
+          muse_added = collect(Path("rules/AI/Muse.list"), Path("rules/AI/Muse.manual.list"))
 
           blocks = []
           if grok_added:
@@ -163,7 +163,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add rules/AI.list rules/OpenAI-NoResolve.list rules/Gemini.list rules/Muse.list rules/Grok.list
+          git add rules/AI.list rules/AI/OpenAI-NoResolve.list rules/AI/Gemini.list rules/AI/Muse.list rules/AI/Grok.list
           if git diff --cached --quiet; then
             echo "No upstream changes."
             exit 0
