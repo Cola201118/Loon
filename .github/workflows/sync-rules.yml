@@ -1,6 +1,9 @@
 name: Sync upstream Apple rules
 
 on:
+  push:
+    paths:
+      - ".github/workflows/sync-rules.yml"
   workflow_dispatch:
   schedule:
     - cron: "17 */6 * * *"
@@ -169,6 +172,33 @@ jobs:
               print("AI.list already contains all Grok/Muse rules")
           PY
 
+
+      - name: Validate generated rule files
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          for name in ("Apple.list", "AI.list", "Muse.list", "Grok.list"):
+              path = Path("rules") / name
+              if not path.is_file() or path.stat().st_size == 0:
+                  raise SystemExit(f"{name} is missing or empty")
+              rules = []
+              for raw in path.read_text(encoding="utf-8").splitlines():
+                  line = raw.strip()
+                  if not line or line.startswith("#"):
+                      continue
+                  line = line.split("//", 1)[0].strip()
+                  if not line or "," not in line:
+                      raise SystemExit(f"{name} contains malformed rule: {raw}")
+                  rules.append("".join(line.lower().split()))
+              if not rules:
+                  raise SystemExit(f"{name} contains no rules")
+              if len(rules) != len(set(rules)):
+                  raise SystemExit(f"{name} contains duplicate rules")
+              print(f"{name}: {len(rules)} rules; validation passed")
+          PY
 
       - name: Commit changes when needed
         shell: bash
