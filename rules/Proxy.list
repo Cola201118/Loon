@@ -1,6 +1,6 @@
 # NAME: Proxy
 # SOURCE: blackmatrix7/ios_rule_script (Loon)
-# UPDATED: 2026-11-25 (manual sync)
+# UPDATED: 2026-11-25 03:02:26 UTC
 # INPUT TOTAL: 7799
 # DEDUPLICATED: 137
 # TOTAL: 7662
@@ -7659,14 +7659,14 @@ IP-CIDR6,2001:b28:f23f::/48,no-resolve
 IP-CIDR6,2620:120:e000::/40,no-resolve
 IP-CIDR6,2a0a:f280::/29,no-resolve
 IP-CIDR6,2a0a:f280::/32,no-resolve
-USER-AGENT,*com.google.Drive*
 USER-AGENT,%E4%BA%91%E7%AB%AF%E7%A1%AC%E7%9B%98*
-USER-AGENT,battleroyale*
-USER-AGENT,com.apple.trustd*
+USER-AGENT,*com.google.Drive*
 USER-AGENT,Duolingo*
 USER-AGENT,Google.Drive*
-USER-AGENT,hearthstone*
 USER-AGENT,OneDrive*
 USER-AGENT,PayPal*
 USER-AGENT,Roam*
 USER-AGENT,WhatsApp*
+USER-AGENT,battleroyale*
+USER-AGENT,com.apple.trustd*
+USER-AGENT,hearthstone*
