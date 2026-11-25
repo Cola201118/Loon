@@ -11,6 +11,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: loon-rules-sync-main
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -40,6 +44,8 @@ jobs:
           for name, url in sources.items():
               request = urlopen(url, timeout=90)
               text = request.read().decode("utf-8")
+              if not text.strip():
+                  raise RuntimeError(f"Upstream source is empty: {name}")
 
               # Keep every upstream input as its own raw subscription file.
               with open("rules/" + name, "w", encoding="utf-8") as raw_file:
@@ -60,6 +66,8 @@ jobs:
                       for line in entries
                   ]
 
+              if not entries:
+                  raise RuntimeError(f"No rules found in upstream source: {name}")
               source_counts[name] = len(entries)
               rules.extend(entries)
 
@@ -119,4 +127,5 @@ jobs:
             exit 0
           fi
           git commit -m "Sync upstream China rules"
+          git pull --rebase origin main
           git push
