@@ -1,5 +1,6 @@
 # NAME: Proxy
 # SOURCE: blackmatrix7/ios_rule_script (Loon)
+# UPDATED: 2026-11-25 16:45:13 UTC
 # SOURCES: Proxy_Source.list + Proxy_Domain.list + GitHub.list + Google.list + Telegram.list + Instagram.list + Twitter.list + Steam.list
 # EXCLUDED: rules/AI.list + rules/Apple.list (preferred higher-priority collections)
 # DOMAIN: 11
