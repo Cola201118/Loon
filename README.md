@@ -35,8 +35,11 @@
 |---|---|
 | Proxy source | [Proxy.list](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Proxy/Proxy.list) |
 | Proxy Domain | [Proxy_Domain.list](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Proxy/Proxy_Domain.list) |
+| GitHub | [GitHub.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/GitHub.list) | [GitHub.list](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GitHub/GitHub.list) |
+| Google | [Google.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Google.list) | [Google.list](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Google/Google.list) |
+| Telegram | [Telegram.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Telegram.list) | [Telegram.list](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Telegram/Telegram.list) |
 
-仓库通过 GitHub Actions 定期同步上游规则，并生成合并订阅。Proxy 的合并订阅为 `rules/Proxy.list`；上游原文件分别保存在 `rules/Proxy_Source.list` 和 `rules/Proxy_Domain.list`。
+仓库通过 GitHub Actions 定期同步上游规则，并生成合并订阅。Proxy 合并订阅为 `rules/Proxy.list`，包含通用 Proxy 规则及 GitHub、Google、Telegram 三组 App 规则。上游原文件分别保存在 `rules/Proxy_Source.list`、`rules/Proxy_Domain.list`、`rules/GitHub.list`、`rules/Google.list` 和 `rules/Telegram.list`。生成时按规则类型和值去重。
 
 ## 感谢
 
