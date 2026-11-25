@@ -1,7 +1,8 @@
 # Grok rules
 # Source classification: xAI / Grok / Grokipedia
-# Upstream: https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/AI/AI.list
-# Local supplements live in rules/Grok.manual.list and are merged into AI.list only.
+# Upstream: YUDIDIFEI/Scripts rule/Loon/AI/AI.list
+# Local supplements: rules/Grok.manual.list (merged into AI.list only)
+# xAI / Grok / Grokipedia
 DOMAIN-SUFFIX,grok.com
 DOMAIN-SUFFIX,grok.x.com
 DOMAIN-SUFFIX,grokbot.com
