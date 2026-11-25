@@ -1,10 +1,11 @@
 # NAME: Apple
 # GENERATED TOTAL: 189
+# TOTAL: 189
 # GENERATED SOURCES: Siri.list + Apple-APNs.list + Apple.lsr
 
 # Apple rules (deduplicated)
 # Generated from the three upstream sources below.
-# ===== rules/Siri.list =====
+# ===== rules/Apple/Siri.list =====
 # AppleFlow — Siri & Mandarin Call Screening Direct Rules
 # 必须置于代理规则与 Apple 兜底规则之前，并配合 skip-proxy + always-real-ip 使用
 # Homepage: https://kianuni.github.io/AppleFlow/
@@ -14,7 +15,7 @@ DOMAIN-SUFFIX,siri.apple.com // Siri 语音服务域名
 DOMAIN,dejavu.apple.com // Siri 语音识别辅助服务
 DOMAIN,sequoia.apple.com // Siri 自然语言服务
 DOMAIN-SUFFIX,smoot.apple.com // Spotlight / Siri 搜索建议（切勿开启旧版 MitM）
-# ===== rules/Apple-APNs.list =====
+# ===== rules/Apple/Apple-APNs.list =====
 # AppleFlow — Clean APNs & Identity Direct Rules
 # 纯净版苹果推送与身份直连规则（已剔除会误伤第三方网站的 akadns.net）
 # Homepage: https://kianuni.github.io/AppleFlow/
@@ -31,7 +32,7 @@ IP-CIDR6,2403:300:a42::/48,no-resolve // Apple APNs IPv6 号段
 IP-CIDR6,2403:300:a51::/48,no-resolve // Apple APNs IPv6 号段
 IP-CIDR6,2620:149:a44::/48,no-resolve // Apple APNs IPv6 号段
 IP-CIDR6,2a01:b740:a42::/48,no-resolve // Apple APNs IPv6 号段
-# ===== rules/Apple.lsr =====
+# ===== rules/Apple/Apple.lsr =====
 # NAME: Apple-Direct
 # DESCRIPTION: Apple baseline services (iCloud, CloudKit, App Store, Apple ID, HomeKit, Apple Music, SystemOTA)
 # AUTHOR: o-ocn
