@@ -3,6 +3,9 @@
 # UPDATED: 2026-11-25 16:45:13 UTC
 # SOURCES: Proxy_Source.list + Proxy_Domain.list + GitHub.list + Google.list + Telegram.list + Instagram.list + Twitter.list + Steam.list
 # EXCLUDED: rules/AI.list + rules/Apple.list (preferred higher-priority collections)
+# TOTAL: 7712
+# App rules merged: GitHub + Google + Telegram + Instagram + Twitter + Steam
+# Proxy_Domain entries converted to DOMAIN / DOMAIN-SUFFIX rules
 # DOMAIN: 11
 # DOMAIN-KEYWORD: 33
 # DOMAIN-SUFFIX: 7526
@@ -10,9 +13,7 @@
 # IP-CIDR: 119
 # IP-CIDR6: 7
 # USER-AGENT: 11
-# TOTAL: 7712
-# App rules merged: GitHub + Google + Telegram + Instagram + Twitter + Steam
-# Proxy_Domain entries converted to DOMAIN / DOMAIN-SUFFIX rules
+# Proxy rules (deduplicated and sorted)
 
 DOMAIN,api.imem.app
 DOMAIN,api.swiftgram.app
@@ -25,39 +26,6 @@ DOMAIN,developer.apple.com
 DOMAIN,login.microsoftonline.com
 DOMAIN,testflight.apple.com
 DOMAIN,voice.telephony.goog
-DOMAIN-KEYWORD,1drv
-DOMAIN-KEYWORD,1e100
-DOMAIN-KEYWORD,abema
-DOMAIN-KEYWORD,appledaily
-DOMAIN-KEYWORD,appspot
-DOMAIN-KEYWORD,avtb
-DOMAIN-KEYWORD,beetalk
-DOMAIN-KEYWORD,blogspot
-DOMAIN-KEYWORD,dlercloud
-DOMAIN-KEYWORD,dropbox
-DOMAIN-KEYWORD,facebook
-DOMAIN-KEYWORD,fbcdn
-DOMAIN-KEYWORD,github
-DOMAIN-KEYWORD,gmail
-DOMAIN-KEYWORD,google
-DOMAIN-KEYWORD,instagram
-DOMAIN-KEYWORD,nicegram
-DOMAIN-KEYWORD,onedrive
-DOMAIN-KEYWORD,paypal
-DOMAIN-KEYWORD,porn
-DOMAIN-KEYWORD,recaptcha
-DOMAIN-KEYWORD,sci-hub
-DOMAIN-KEYWORD,skydrive
-DOMAIN-KEYWORD,spotify
-DOMAIN-KEYWORD,steambroadcast
-DOMAIN-KEYWORD,steamstore
-DOMAIN-KEYWORD,steamuserimages
-DOMAIN-KEYWORD,telegram
-DOMAIN-KEYWORD,ttvnw
-DOMAIN-KEYWORD,twitter
-DOMAIN-KEYWORD,uk-live
-DOMAIN-KEYWORD,whatsapp
-DOMAIN-KEYWORD,youtube
 DOMAIN-SUFFIX,000webhost.com
 DOMAIN-SUFFIX,030buy.com
 DOMAIN-SUFFIX,0emm.com
@@ -7584,6 +7552,50 @@ DOMAIN-SUFFIX,zyxel.com
 DOMAIN-SUFFIX,zzcartoon.com
 DOMAIN-SUFFIX,zzcloud.me
 DOMAIN-SUFFIX,zzux.com
+DOMAIN-KEYWORD,1drv
+DOMAIN-KEYWORD,1e100
+DOMAIN-KEYWORD,abema
+DOMAIN-KEYWORD,appledaily
+DOMAIN-KEYWORD,appspot
+DOMAIN-KEYWORD,avtb
+DOMAIN-KEYWORD,beetalk
+DOMAIN-KEYWORD,blogspot
+DOMAIN-KEYWORD,dlercloud
+DOMAIN-KEYWORD,dropbox
+DOMAIN-KEYWORD,facebook
+DOMAIN-KEYWORD,fbcdn
+DOMAIN-KEYWORD,github
+DOMAIN-KEYWORD,gmail
+DOMAIN-KEYWORD,google
+DOMAIN-KEYWORD,instagram
+DOMAIN-KEYWORD,nicegram
+DOMAIN-KEYWORD,onedrive
+DOMAIN-KEYWORD,paypal
+DOMAIN-KEYWORD,porn
+DOMAIN-KEYWORD,recaptcha
+DOMAIN-KEYWORD,sci-hub
+DOMAIN-KEYWORD,skydrive
+DOMAIN-KEYWORD,spotify
+DOMAIN-KEYWORD,steambroadcast
+DOMAIN-KEYWORD,steamstore
+DOMAIN-KEYWORD,steamuserimages
+DOMAIN-KEYWORD,telegram
+DOMAIN-KEYWORD,ttvnw
+DOMAIN-KEYWORD,twitter
+DOMAIN-KEYWORD,uk-live
+DOMAIN-KEYWORD,whatsapp
+DOMAIN-KEYWORD,youtube
+USER-AGENT,*com.google.Drive*
+USER-AGENT,%E4%BA%91%E7%AB%AF%E7%A1%AC%E7%9B%98*
+USER-AGENT,battleroyale*
+USER-AGENT,com.apple.trustd*
+USER-AGENT,Duolingo*
+USER-AGENT,Google.Drive*
+USER-AGENT,hearthstone*
+USER-AGENT,OneDrive*
+USER-AGENT,PayPal*
+USER-AGENT,Roam*
+USER-AGENT,WhatsApp*
 IP-ASN,211157,no-resolve
 IP-ASN,44907,no-resolve
 IP-ASN,59930,no-resolve
@@ -7715,14 +7727,3 @@ IP-CIDR6,2001:b28:f23f::/48,no-resolve
 IP-CIDR6,2620:120:e000::/40,no-resolve
 IP-CIDR6,2a0a:f280::/29,no-resolve
 IP-CIDR6,2a0a:f280::/32,no-resolve
-USER-AGENT,%E4%BA%91%E7%AB%AF%E7%A1%AC%E7%9B%98*
-USER-AGENT,*com.google.Drive*
-USER-AGENT,Duolingo*
-USER-AGENT,Google.Drive*
-USER-AGENT,OneDrive*
-USER-AGENT,PayPal*
-USER-AGENT,Roam*
-USER-AGENT,WhatsApp*
-USER-AGENT,battleroyale*
-USER-AGENT,com.apple.trustd*
-USER-AGENT,hearthstone*
