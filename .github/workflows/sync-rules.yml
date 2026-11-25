@@ -82,6 +82,25 @@ jobs:
             }
           ' > rules/AI.list
 
+
+      - name: Extract standalone Muse and Grok rules
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/AI/AI.list" -o /tmp/upstream-ai.list
+          {
+            echo "# Muse rules"
+            echo "# Source classification: Meta AI / Muse / Llama / SAM"
+            echo "# Upstream: YUDIDIFEI/Scripts rule/Loon/AI/AI.list"
+            awk 'BEGIN { found=0; active=0 } /^# Meta AI \/ Muse \/ Llama \/ SAM$/ { found=1; active=1 } active { if ($0 == "" && found) exit; print } END { if (!found) exit 2 }' /tmp/upstream-ai.list
+          } > rules/Muse.list
+          {
+            echo "# Grok rules"
+            echo "# Source classification: xAI / Grok / Grokipedia"
+            echo "# Upstream: YUDIDIFEI/Scripts rule/Loon/AI/AI.list"
+            awk 'BEGIN { found=0; active=0 } /^# xAI \/ Grok \/ Grokipedia$/ { found=1; active=1 } active { if ($0 == "" && found) exit; print } END { if (!found) exit 2 }' /tmp/upstream-ai.list
+          } > rules/Grok.list
+
       - name: Commit changes when needed
         shell: bash
         run: |
