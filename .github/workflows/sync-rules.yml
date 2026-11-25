@@ -61,8 +61,9 @@ jobs:
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/poohyeban/loon-rules/main/rules/OpenAI/OpenAI-NoResolve.list" -o rules/OpenAI-NoResolve.list
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/VPSDance/ai-proxy-rules/main/rules/loon/google-ai.list" -o rules/Gemini.list
           {
-            echo "# AI rules (OpenAI + Gemini, deduplicated)"
+            echo "# AI rules (OpenAI + Gemini + Grok + Muse, deduplicated)"
             echo "# OpenAI source preserves no-resolve IP rules."
+            echo "# Grok/Muse sections are appended after standalone extract."
             cat rules/OpenAI-NoResolve.list
             echo
             cat rules/Gemini.list
@@ -101,7 +102,6 @@ jobs:
               echo
               echo "# Manual supplement (not from upstream, preserved by workflow)"
               echo "# Source: rules/Muse.manual.list"
-              # Keep only real rules (skip comments / blank lines)
               grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|IP-CIDR|IP-CIDR6|PROCESS-NAME|USER-AGENT)' rules/Muse.manual.list || true
             } >> rules/Muse.list
           fi
@@ -121,6 +121,55 @@ jobs:
               grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|IP-CIDR|IP-CIDR6|PROCESS-NAME|USER-AGENT)' rules/Grok.manual.list || true
             } >> rules/Grok.list
           fi
+
+          # --- Merge Grok + Muse into AI.list (primary subscription) ---
+          # Deduplicate against existing AI.list rules so only new lines are added.
+          python3 - <<'PY'
+          from pathlib import Path
+
+          def is_rule(line: str) -> bool:
+              s = line.strip()
+              return bool(s) and not s.startswith("#")
+
+          def key(line: str) -> str:
+              return "".join(line.lower().split())
+
+          ai_path = Path("rules/AI.list")
+          ai_lines = ai_path.read_text(encoding="utf-8").splitlines()
+          existing = {key(l) for l in ai_lines if is_rule(l)}
+
+          def collect(path: Path):
+              if not path.exists():
+                  return []
+              out = []
+              for line in path.read_text(encoding="utf-8").splitlines():
+                  if not is_rule(line):
+                      continue
+                  k = key(line)
+                  if k in existing:
+                      continue
+                  existing.add(k)
+                  out.append(line.strip())
+              return out
+
+          grok_added = collect(Path("rules/Grok.list"))
+          muse_added = collect(Path("rules/Muse.list"))
+
+          blocks = []
+          if grok_added:
+              blocks.append("# ===== xAI / Grok (from Grok.list + Grok.manual.list) =====")
+              blocks.extend(grok_added)
+          if muse_added:
+              blocks.append("# ===== Meta AI / Muse (from Muse.list + Muse.manual.list) =====")
+              blocks.extend(muse_added)
+
+          if blocks:
+              text = ai_path.read_text(encoding="utf-8").rstrip() + "\n\n" + "\n".join(blocks) + "\n"
+              ai_path.write_text(text, encoding="utf-8")
+              print(f"AI.list merged: +{len(grok_added)} Grok, +{len(muse_added)} Muse")
+          else:
+              print("AI.list already contains all Grok/Muse rules")
+          PY
 
 
       - name: Merge B7 Steam rules into Proxy
