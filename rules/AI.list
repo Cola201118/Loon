@@ -1,6 +1,6 @@
 # NAME: AI
 # SOURCE: OpenAI + Gemini + Grok + Muse
-# UPDATED: 2026-11-26 00:00:00 UTC
+# UPDATED: 2026-11-25 18:49:59 UTC
 # SOURCES: OpenAI-NoResolve.list + Gemini.list + Grok.list + Grok.manual.list + Muse.list + Muse.manual.list
 # DOMAIN: 44
 # DOMAIN-SUFFIX: 66
@@ -8,7 +8,7 @@
 # PROCESS-NAME: 2
 # TOTAL: 558
 
-# AI rules (deduplicated and sorted)
+# AI rules (OpenAI + Gemini + Grok + Muse, deduplicated and sorted)
 DOMAIN,accounts.x.ai
 DOMAIN,accountscenter.meta.com
 DOMAIN,ai.meta.com
