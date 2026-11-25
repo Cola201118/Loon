@@ -68,7 +68,7 @@ jobs:
           from collections import Counter
           path = Path("rules/Apple.list")
           lines = path.read_text(encoding="utf-8").splitlines()
-          rules = [line.strip() for line in lines if line.strip() and not line.lstrip().startswith("#")]
+          rules = [line.split("//", 1)[0].strip() for line in lines if line.strip() and not line.lstrip().startswith("#")]
           counts = Counter(line.split(",", 1)[0].strip().upper() for line in rules)
           rules.sort(key=lambda line: ({"DOMAIN": 0, "DOMAIN-SUFFIX": 1, "DOMAIN-KEYWORD": 2, "USER-AGENT": 3, "IP-ASN": 4, "IP-CIDR": 5, "IP-CIDR6": 6}.get(line.split(",", 1)[0].strip().upper(), 99), line.split(",", 1)[1].casefold() if "," in line and not line.startswith("USER-AGENT,") else (line.split(",", 1)[1] if "," in line else ""), line.casefold()))
           count = len(rules)
