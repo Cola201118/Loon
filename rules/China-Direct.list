@@ -1,12 +1,11 @@
 # NAME: China-Direct
 # SOURCE: blackmatrix7/ios_rule_script (Loon)
-# UPDATED: 2026-11-25
+# UPDATED: 2026-11-25 01:54:43 UTC
 # INPUT TOTAL: 124264
 # DEDUPLICATED: 4
 # TOTAL: 124260
 # SOURCES: ChinaMax.list + ChinaMax_Domain.list + ChinaASN.list + Lan.list
-# ChinaMax_Domain entries converted to DOMAIN / DOMAIN-SUFFIX
-# SORT: rule type, then rule value (ascending)
+# ChinaMax_Domain entries converted to DOMAIN / DOMAIN-SUFFIX rules
 
 DOMAIN,1-fss24-s0.streamhoster.com
 DOMAIN,14033.live.streamtheworld.com
@@ -124212,59 +124211,59 @@ USER-AGENT,%E5%92%AA%E5%92%95%E8%A7%86%E9%A2%91
 USER-AGENT,%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90
 USER-AGENT,%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90*
 USER-AGENT,%E9%85%B7%E6%88%91%E9%9F%B3%E4%B9%90*
-USER-AGENT,*bili*
 USER-AGENT,*QIYI*
 USER-AGENT,*Vainglory*
+USER-AGENT,*bili*
 USER-AGENT,AcFun*
 USER-AGENT,AdBlock*
-USER-AGENT,arrowio*
-USER-AGENT,baiduyinyue
-USER-AGENT,balls*
 USER-AGENT,Best%20Trace*
-USER-AGENT,bili*
-USER-AGENT,bili-inter*
 USER-AGENT,Bilibili*
-USER-AGENT,bilibili*
-USER-AGENT,cmb*
-USER-AGENT,cmblife*
 USER-AGENT,DomesticMedia*
-USER-AGENT,eusoft_ting_en_iphone
-USER-AGENT,hearthstone*
-USER-AGENT,hide*
 USER-AGENT,Himalaya*
-USER-AGENT,iQiYi*
-USER-AGENT,iQiyi*
-USER-AGENT,iQIYI*
-USER-AGENT,live4iphone*
-USER-AGENT,MegaWerewolf*
 USER-AGENT,MGTV*
+USER-AGENT,MOO%E9%9F%B3%E4%B9%90*
+USER-AGENT,MOO*
+USER-AGENT,MegaWerewolf*
 USER-AGENT,MicroMessenger%20Client
 USER-AGENT,MicroMessenger*
 USER-AGENT,MicroMessengerClient*
 USER-AGENT,Microsoft*
 USER-AGENT,MiguVideo*
 USER-AGENT,Moke*
-USER-AGENT,MOO%E9%9F%B3%E4%B9%90*
-USER-AGENT,MOO*
 USER-AGENT,NeteaseMusic*
 USER-AGENT,PPStream*
 USER-AGENT,QIYI*
 USER-AGENT,QQ%E9%9F%B3%E4%B9%90
 USER-AGENT,QQ%e9%9f%b3%e4%b9%90*
 USER-AGENT,QQ*
-USER-AGENT,qqlive4iphone*
 USER-AGENT,QQMusic*
 USER-AGENT,QYPlayer*
 USER-AGENT,RemotePlay*
+USER-AGENT,TIM*
 USER-AGENT,TeamViewer*
 USER-AGENT,TencentMidasConnect*
 USER-AGENT,TikTok*
-USER-AGENT,TIM*
+USER-AGENT,WeChat*
+USER-AGENT,WebTorrent*
+USER-AGENT,YYeTs*
+USER-AGENT,Youku*
+USER-AGENT,arrowio*
+USER-AGENT,baiduyinyue
+USER-AGENT,balls*
+USER-AGENT,bili*
+USER-AGENT,bili-inter*
+USER-AGENT,bilibili*
+USER-AGENT,cmb*
+USER-AGENT,cmblife*
+USER-AGENT,eusoft_ting_en_iphone
+USER-AGENT,hearthstone*
+USER-AGENT,hide*
+USER-AGENT,iQIYI*
+USER-AGENT,iQiYi*
+USER-AGENT,iQiyi*
+USER-AGENT,live4iphone*
+USER-AGENT,qqlive4iphone*
 USER-AGENT,ting_en
 USER-AGENT,walkman*
-USER-AGENT,WebTorrent*
-USER-AGENT,WeChat*
 USER-AGENT,xiami*
 USER-AGENT,youku*
-USER-AGENT,Youku*
-USER-AGENT,YYeTs*
