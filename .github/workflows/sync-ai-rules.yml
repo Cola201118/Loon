@@ -1,0 +1,173 @@
+name: Sync upstream AI rules
+
+on:
+  push:
+    paths:
+      - ".github/workflows/sync-ai-rules.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "37 */6 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: loon-rules-sync-main
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download and merge AI rules
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/poohyeban/loon-rules/main/rules/OpenAI/OpenAI-NoResolve.list" -o rules/OpenAI-NoResolve.list
+          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/VPSDance/ai-proxy-rules/main/rules/loon/google-ai.list" -o rules/Gemini.list
+          test -s rules/OpenAI-NoResolve.list
+          test -s rules/Gemini.list
+          {
+            echo "# AI rules (OpenAI + Gemini + Grok + Muse, deduplicated)"
+            echo "# OpenAI source preserves no-resolve IP rules."
+            echo "# Grok/Muse sections are appended after standalone extract."
+            cat rules/OpenAI-NoResolve.list
+            echo
+            cat rules/Gemini.list
+          } | awk '
+            {
+              original = $0
+              key = $0
+              sub(/[[:space:]]*#.*/, "", key)
+              gsub(/^[[:space:]]+|[[:space:]]+$/, "", key)
+              if (key == "" || key ~ /^#/) {
+                if (original ~ /^[[:space:]]*#/) print original
+                next
+              }
+              key = tolower(key)
+              gsub(/[[:space:]]+/, "", key)
+              if (!seen[key]++) print original
+            }
+          ' > rules/AI.list
+
+
+      - name: Extract standalone Muse and Grok rules
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/YUDIDIFEI/Scripts/master/rule/Loon/AI/AI.list" -o /tmp/upstream-ai.list
+          test -s /tmp/upstream-ai.list
+
+          # --- Muse: upstream extract only (manual stays in Muse.manual.list) ---
+          {
+            echo "# Muse rules"
+            echo "# Source classification: Meta AI / Muse / Llama / SAM"
+            echo "# Upstream: YUDIDIFEI/Scripts rule/Loon/AI/AI.list"
+            echo "# Local supplements: rules/Muse.manual.list (merged into AI.list only)"
+            awk 'BEGIN { found=0; active=0 } /^# Meta AI \/ Muse \/ Llama \/ SAM$/ { found=1; active=1 } active { if ($0 == "" && found) exit; print } END { if (!found) exit 2 }' /tmp/upstream-ai.list
+          } > rules/Muse.list
+
+          # --- Grok: upstream extract only (manual stays in Grok.manual.list) ---
+          {
+            echo "# Grok rules"
+            echo "# Source classification: xAI / Grok / Grokipedia"
+            echo "# Upstream: YUDIDIFEI/Scripts rule/Loon/AI/AI.list"
+            echo "# Local supplements: rules/Grok.manual.list (merged into AI.list only)"
+            awk 'BEGIN { found=0; active=0 } /^# xAI \/ Grok \/ Grokipedia$/ { found=1; active=1 } active { if ($0 == "" && found) exit; print } END { if (!found) exit 2 }' /tmp/upstream-ai.list
+          } > rules/Grok.list
+
+          # --- Merge into AI.list: upstream Grok/Muse + local manuals, deduplicated ---
+          python3 - <<'PY'
+          from pathlib import Path
+
+          def is_rule(line: str) -> bool:
+              s = line.strip()
+              return bool(s) and not s.startswith("#")
+
+          def key(line: str) -> str:
+              return "".join(line.lower().split())
+
+          ai_path = Path("rules/AI.list")
+          ai_lines = ai_path.read_text(encoding="utf-8").splitlines()
+          existing = {key(l) for l in ai_lines if is_rule(l)}
+
+          def collect(*paths: Path):
+              out = []
+              for path in paths:
+                  if not path.exists():
+                      continue
+                  for line in path.read_text(encoding="utf-8").splitlines():
+                      if not is_rule(line):
+                          continue
+                      k = key(line)
+                      if k in existing:
+                          continue
+                      existing.add(k)
+                      out.append(line.strip())
+              return out
+
+          # Grok: upstream list + local manual (manual is NOT written into Grok.list)
+          grok_added = collect(Path("rules/Grok.list"), Path("rules/Grok.manual.list"))
+          # Muse: same pattern for consistency
+          muse_added = collect(Path("rules/Muse.list"), Path("rules/Muse.manual.list"))
+
+          blocks = []
+          if grok_added:
+              blocks.append("# ===== xAI / Grok (Grok.list + Grok.manual.list) =====")
+              blocks.extend(grok_added)
+          if muse_added:
+              blocks.append("# ===== Meta AI / Muse (Muse.list + Muse.manual.list) =====")
+              blocks.extend(muse_added)
+
+          if blocks:
+              text = ai_path.read_text(encoding="utf-8").rstrip() + "\n\n" + "\n".join(blocks) + "\n"
+              ai_path.write_text(text, encoding="utf-8")
+              print(f"AI.list merged: +{len(grok_added)} Grok, +{len(muse_added)} Muse")
+          else:
+              print("AI.list already contains all Grok/Muse rules")
+          PY
+
+
+      - name: Validate generated AI rules
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          for name in ("AI.list", "Muse.list", "Grok.list"):
+              path = Path("rules") / name
+              if not path.is_file() or path.stat().st_size == 0:
+                  raise SystemExit(f"{name} is missing or empty")
+              rules = []
+              for raw in path.read_text(encoding="utf-8").splitlines():
+                  line = raw.strip()
+                  if not line or line.startswith("#"):
+                      continue
+                  line = line.split("//", 1)[0].strip()
+                  if not line or "," not in line:
+                      raise SystemExit(f"{name} contains malformed rule: {raw}")
+                  rules.append("".join(line.lower().split()))
+              if not rules:
+                  raise SystemExit(f"{name} contains no rules")
+              if len(rules) != len(set(rules)):
+                  raise SystemExit(f"{name} contains duplicate rules")
+              print(f"{name}: {len(rules)} rules; validation passed")
+          PY
+
+      - name: Commit changes when needed
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rules/AI.list rules/OpenAI-NoResolve.list rules/Gemini.list rules/Muse.list rules/Grok.list
+          if git diff --cached --quiet; then
+            echo "No upstream changes."
+            exit 0
+          fi
+          git commit -m "Sync upstream AI rules"
+          git pull --rebase origin main
+          git push
