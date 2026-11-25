@@ -1,0 +1,11 @@
+# Muse manual supplement
+# Not from upstream. Maintained locally in this file only; Muse.list stays upstream-only.
+# Appended to Muse.list by workflow after each sync, and merged into AI.list.
+# Edit this file to add/remove Meta AI / Muse domains without fighting the extractor.
+
+DOMAIN-SUFFIX,meta.com
+DOMAIN-SUFFIX,museai.com
+DOMAIN-SUFFIX,ecto1.ai
+DOMAIN-SUFFIX,llamameta.net
+DOMAIN-SUFFIX,metademolab.com
+DOMAIN,ep7.facebook.com
