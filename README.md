@@ -22,10 +22,11 @@
 
 | 规则 | 订阅链接 | 当前规则数 |
 |---|---|---:|
-| Muse（Meta AI / Muse / Llama / SAM 分类） | [Muse.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Muse.list) | 13 |
+| Muse（Meta AI / Muse / Llama / SAM 分类） | [Muse.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Muse.list) | 19 |
+| Muse 手动补充（同步不会覆盖） | [Muse-manual.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Muse-manual.list) | 6 |
 | Grok（xAI / Grok / Grokipedia 分类） | [Grok.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Grok.list) | 5 |
 
-两份文件独立于 AI.list，不与 OpenAI、Gemini 或彼此合并。上游采用 YUDIDIFEI/Scripts 的 Loon AI 分类清单；GitHub Actions 每 6 小时同步并按分类提取。Muse 分类按上游原始分组，包含 Meta AI、Muse、Llama 与 SAM 相关域名。
+两份文件独立于 AI.list，不与 OpenAI、Gemini 或彼此合并。上游采用 YUDIDIFEI/Scripts 的 Loon AI 分类清单；GitHub Actions 每 6 小时同步并按分类提取。Muse 分类按上游原始分组，包含 Meta AI、Muse、Llama 与 SAM 相关域名。Muse.list 目前为上游 13 条加手动补充 6 条，共 19 条；手动补充的 6 条同时保存在独立的 rules/Muse-manual.list 中，同步只重写 Muse.list，不会覆盖该文件，Loon 里请同时订阅两份，同步后 Muse.list 会回到 13 条，手动补充仍由 Muse-manual.list 提供。
 
 ## 上游规则来源
 
