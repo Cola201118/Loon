@@ -24,10 +24,16 @@
 |---|---|---:|
 | Muse（Meta AI / Muse / Llama / SAM 分类） | [Muse.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Muse.list) | 13 |
 | Muse 手动补充（本地维护） | [Muse.manual.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Muse.manual.list) | 6 |
-| Grok 手动补充（本地维护） | [Grok.manual.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Grok.manual.list) | 11 |
 | Grok（xAI / Grok / Grokipedia 分类） | [Grok.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Grok.list) | 5 |
+| Grok 手动补充（本地维护） | [Grok.manual.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Grok.manual.list) | 11 |
 
 Muse 与 Grok 的上游规则也包含在 AI.list 中，仍保留独立订阅文件；两份独立文件不与 OpenAI、Gemini 或彼此合并。上游采用 YUDIDIFEI/Scripts 的 Loon AI 分类清单；GitHub Actions 每 6 小时同步并按分类提取。Muse 分类按上游原始分组，包含 Meta AI、Muse、Llama 与 SAM 相关域名。Muse.list 与 Grok.list 始终只含各自上游规则；本地手动补充分别保存在 Muse.manual.list、Grok.manual.list，只合并进 AI.list，不写入独立上游文件。
+
+## 其他独立规则
+
+| 规则 | 说明 | 订阅链接 |
+|---|---|---|
+| GeoIP | 本地维护的中国 GEOIP 直连规则（单条） | [GeoIP.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/GeoIP.list) |
 
 ## 上游规则来源
 
@@ -50,8 +56,8 @@ Muse 与 Grok 的上游规则也包含在 AI.list 中，仍保留独立订阅文
 
 ### Proxy
 
-| 本地镜像文件 | 上游链接 |
-|---|---|
+| 规则 | 本地镜像文件 | 上游链接 |
+|---|---|---|
 | Proxy source | [本地镜像](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Proxy_Source.list) | [上游](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Proxy/Proxy.list) |
 | Proxy Domain | [本地镜像](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Proxy_Domain.list) | [上游](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Proxy/Proxy_Domain.list) |
 | GitHub | [本地镜像](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/GitHub.list) | [上游](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GitHub/GitHub.list) |
@@ -61,7 +67,7 @@ Muse 与 Grok 的上游规则也包含在 AI.list 中，仍保留独立订阅文
 | X (Twitter) | [本地镜像](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Twitter.list) | [上游](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Twitter/Twitter.list) |
 | Steam | [本地镜像](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Steam.list) | [上游](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Steam/Steam.list) |
 
-仓库通过 GitHub Actions 定期同步上游规则，并生成合并订阅。Proxy 合并订阅为 `rules/Proxy.list`，包含通用 Proxy 规则及 GitHub、Google、Telegram、Instagram、X（Twitter）、Steam 六组 App 规则。上游原文件分别保存在 `rules/Proxy_Source.list`、`rules/Proxy_Domain.list`、`rules/GitHub.list`、`rules/Google.list`、`rules/Telegram.list`、`rules/Instagram.list` 和 `rules/Twitter.list`、`rules/Steam.list`。生成时按规则类型和值去重；Steam 与其他 Proxy 来源由同一个工作流统一生成，避免被后续同步覆盖。
+仓库通过 GitHub Actions 定期同步上游规则，并生成合并订阅。Proxy 合并订阅为 `rules/Proxy.list`，包含通用 Proxy 规则及 GitHub、Google、Telegram、Instagram、X（Twitter）、Steam 六组 App 规则。上游原文件分别保存在 `rules/Proxy_Source.list`、`rules/Proxy_Domain.list`、`rules/GitHub.list`、`rules/Google.list`、`rules/Telegram.list`、`rules/Instagram.list`、`rules/Twitter.list` 和 `rules/Steam.list`。生成时按规则类型和值去重；Steam 与其他 Proxy 来源由同一个工作流统一生成，避免被后续同步覆盖。
 
 ## 感谢
 
