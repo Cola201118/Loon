@@ -1,0 +1,16 @@
+# Grok manual supplement
+# Local maintenance only — not from upstream.
+# Workflow appends these rules into Grok.list, then merges into AI.list.
+# Edit this file to add/remove domains; do not put them only in Grok.list or AI.list.
+
+DOMAIN-SUFFIX,grokusercontent.com
+DOMAIN,auth.x.ai
+DOMAIN,accounts.x.ai
+DOMAIN,api.x.ai
+DOMAIN,us.api.x.ai
+DOMAIN,cli-chat-proxy.grok.com
+DOMAIN,code.grok.com
+DOMAIN,assets.grok.com
+DOMAIN,management-api.x.ai
+DOMAIN,console.x.ai
+DOMAIN,status.x.ai
