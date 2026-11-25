@@ -85,7 +85,7 @@ jobs:
           ))
 
           generated = [
-              "# NAME: China-Direct",
+              "# NAME: China",
               "# SOURCE: blackmatrix7/ios_rule_script (Loon)",
               "# UPDATED: " + datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
               "# INPUT TOTAL: " + str(len(rules)),
@@ -98,7 +98,7 @@ jobs:
               "",
           ]
 
-          with open("rules/China-Direct.list", "w", encoding="utf-8", newline="\n") as f:
+          with open("rules/China.list", "w", encoding="utf-8", newline="\n") as f:
               f.write("\n".join(generated))
 
           print("Source counts:", source_counts)
@@ -113,7 +113,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add rules/ChinaMax.list rules/ChinaMax_Domain.list rules/ChinaASN.list rules/Lan.list rules/China-Direct.list
+          git add rules/ChinaMax.list rules/ChinaMax_Domain.list rules/ChinaASN.list rules/Lan.list rules/China.list
           if git diff --cached --quiet; then
             echo "No upstream changes."
             exit 0

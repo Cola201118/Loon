@@ -20,21 +20,21 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p rules
-          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/Kianuni/AppleFlow/main/rules/surge/Siri-Direct.list" -o rules/Siri-Direct.list
-          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/Kianuni/AppleFlow/main/rules/surge/Apple-APNs-Direct.list" -o rules/Apple-APNs-Direct.list
-          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/o-ocn/loon-rules/main/dist/Apple-Direct.lsr" -o rules/Apple-Direct.lsr
+          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/Kianuni/AppleFlow/main/rules/surge/Siri-Direct.list" -o rules/Siri.list
+          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/Kianuni/AppleFlow/main/rules/surge/Apple-APNs-Direct.list" -o rules/Apple-APNs.list
+          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/o-ocn/loon-rules/main/dist/Apple-Direct.lsr" -o rules/Apple.lsr
           {
-            echo "# Combined Apple direct rules (deduplicated)"
+            echo "# Apple rules (deduplicated)"
             echo "# Generated from the three upstream sources below."
             echo
-            echo "# ===== rules/Siri-Direct.list ====="
-            cat rules/Siri-Direct.list
+            echo "# ===== rules/Siri.list ====="
+            cat rules/Siri.list
             echo
-            echo "# ===== rules/Apple-APNs-Direct.list ====="
-            cat rules/Apple-APNs-Direct.list
+            echo "# ===== rules/Apple-APNs.list ====="
+            cat rules/Apple-APNs.list
             echo
-            echo "# ===== rules/Apple-Direct.lsr ====="
-            cat rules/Apple-Direct.lsr
+            echo "# ===== rules/Apple.lsr ====="
+            cat rules/Apple.lsr
           } | awk '
             {
               original = $0
@@ -51,7 +51,7 @@ jobs:
               if (key == "domain-suffix,applemusic.com" || key == "domain-suffix,music.apple.com") next
               if (!seen[key]++) print original
             }
-          ' > rules/Apple-Combined.list
+          ' > rules/Apple.list
 
       - name: Commit changes when needed
         shell: bash
