@@ -6,7 +6,7 @@ on:
       - ".github/workflows/sync-proxy-rules.yml"
   workflow_dispatch:
   schedule:
-    - cron: "43 */6 * * *"
+    - cron: "47 */6 * * *"
 
 permissions:
   contents: write
@@ -26,7 +26,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p rules
+          mkdir -p rules/Proxy
           python3 <<'PY'
           from datetime import datetime, timezone
           from urllib.request import urlopen
@@ -52,7 +52,7 @@ jobs:
                   raise RuntimeError(f"Upstream source is empty: {name}")
 
               # Keep the exact upstream file as a separate mirror.
-              with open("rules/" + name, "w", encoding="utf-8", newline="\n") as raw_file:
+              with open("rules/Proxy/" + name, "w", encoding="utf-8", newline="\n") as raw_file:
                   raw_file.write(content)
 
               entries = [
@@ -123,6 +123,41 @@ jobs:
           print("Input rules:", len(rules))
           print("Duplicates removed:", len(rules) - len(unique))
           print("Final rules:", len(unique))
+          PY
+
+      - name: Validate generated Proxy rules
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          sources = ("Proxy_Source.list", "Proxy_Domain.list", "GitHub.list", "Google.list", "Telegram.list", "Instagram.list", "Twitter.list", "Steam.list")
+          for name in sources:
+              path = Path("rules/Proxy") / name
+              if not path.is_file() or path.stat().st_size == 0:
+                  raise SystemExit(f"Missing or empty source file: {path}")
+          path = Path("rules/Proxy.list")
+          lines = path.read_text(encoding="utf-8").splitlines()
+          rules = [line.strip() for line in lines if line.strip() and not line.lstrip().startswith("#")]
+          if not rules:
+              raise SystemExit("Proxy.list contains no rules")
+          malformed = [line for line in rules if "," not in line]
+          if malformed:
+              raise SystemExit(f"Malformed Proxy rules: {malformed[:5]}")
+          def key(line):
+              parts = [part.strip() for part in line.split(",")]
+              kind = parts[0].upper()
+              value = parts[1] if len(parts) > 1 else ""
+              if kind != "USER-AGENT":
+                  value = value.casefold()
+              return (kind, value, tuple(part.casefold() for part in parts[2:]))
+          if len({key(line) for line in rules}) != len(rules):
+              raise SystemExit("Proxy.list contains duplicate rules")
+          match = re.search(r"^# TOTAL: (\d+)$", "\n".join(lines), re.M)
+          if not match or int(match.group(1)) != len(rules):
+              raise SystemExit(f"Proxy.list # TOTAL mismatch: actual {len(rules)}")
+          print(f"Proxy.list: {len(rules)} rules; validation passed")
           PY
 
       - name: Commit changes when needed

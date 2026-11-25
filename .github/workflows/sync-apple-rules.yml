@@ -26,7 +26,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p rules
+          mkdir -p rules/Apple
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/Kianuni/AppleFlow/main/rules/surge/Siri-Direct.list" -o rules/Apple/Siri.list
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/Kianuni/AppleFlow/main/rules/surge/Apple-APNs-Direct.list" -o rules/Apple/Apple-APNs.list
           curl --fail --location --silent --show-error "https://raw.githubusercontent.com/o-ocn/loon-rules/main/dist/Apple-Direct.lsr" -o rules/Apple/Apple.lsr
@@ -73,6 +73,7 @@ jobs:
           header = [
               "# NAME: Apple",
               f"# GENERATED TOTAL: {count}",
+              f"# TOTAL: {count}",
               "# GENERATED SOURCES: Siri.list + Apple-APNs.list + Apple.lsr",
               "",
           ]
@@ -101,6 +102,10 @@ jobs:
               rules.append("".join(line.lower().split()))
           if not rules:
               raise SystemExit("Apple.list contains no rules")
+          import re
+          match = re.search(r"^# TOTAL: (\d+)$", path.read_text(encoding="utf-8"), re.M)
+          if not match or int(match.group(1)) != len(rules):
+              raise SystemExit("Apple.list # TOTAL does not match its actual rule count")
           if len(rules) != len(set(rules)):
               raise SystemExit("Apple.list contains duplicate rules")
           print(f"Apple.list: {len(rules)} rules; validation passed")
