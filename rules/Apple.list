@@ -1,13 +1,14 @@
 # NAME: Apple
+# SOURCE: AppleFlow + o-ocn/loon-rules
+# UPDATED: 2026-11-25 15:46:55 UTC
+# SOURCES: Siri.list + Apple-APNs.list + Apple.lsr
 # DOMAIN: 81
 # DOMAIN-KEYWORD: 2
 # DOMAIN-SUFFIX: 95
 # IP-CIDR: 6
 # IP-CIDR6: 4
 # USER-AGENT: 1
-# GENERATED TOTAL: 189
 # TOTAL: 189
-# GENERATED SOURCES: Siri.list + Apple-APNs.list + Apple.lsr
 
 # Apple rules (deduplicated)
 # Generated from the three upstream sources below.
@@ -39,11 +40,9 @@ IP-CIDR6,2403:300:a51::/48,no-resolve // Apple APNs IPv6 号段
 IP-CIDR6,2620:149:a44::/48,no-resolve // Apple APNs IPv6 号段
 IP-CIDR6,2a01:b740:a42::/48,no-resolve // Apple APNs IPv6 号段
 # ===== rules/Apple/Apple.lsr =====
-# NAME: Apple-Direct
 # DESCRIPTION: Apple baseline services (iCloud, CloudKit, App Store, Apple ID, HomeKit, Apple Music, SystemOTA)
 # AUTHOR: o-ocn
 # REVISION: 0e33096c4d3e
-# TOTAL: 175
 # ==============================================================================
 DOMAIN-SUFFIX,apps.apple.com
 DOMAIN-SUFFIX,itunes.apple.com
