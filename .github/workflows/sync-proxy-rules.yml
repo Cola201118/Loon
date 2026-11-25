@@ -11,6 +11,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: loon-rules-sync-main
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -44,6 +48,8 @@ jobs:
           for name, url in sources.items():
               with urlopen(url, timeout=90) as response:
                   content = response.read().decode("utf-8")
+              if not content.strip():
+                  raise RuntimeError(f"Upstream source is empty: {name}")
 
               # Keep the exact upstream file as a separate mirror.
               with open("rules/" + name, "w", encoding="utf-8", newline="\n") as raw_file:
@@ -64,6 +70,8 @@ jobs:
                       for line in entries
                   ]
 
+              if not entries:
+                  raise RuntimeError(f"No rules found in upstream source: {name}")
               source_counts[name] = len(entries)
               rules.extend(entries)
 
@@ -118,7 +126,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add rules/Proxy_Source.list rules/Proxy_Domain.list rules/GitHub.list rules/Google.list rules/Telegram.list rules/Instagram.list rules/Twitter.list rules/Proxy.list
+          git add rules/Proxy_Source.list rules/Proxy_Domain.list rules/GitHub.list rules/Google.list rules/Telegram.list rules/Instagram.list rules/Twitter.list rules/Steam.list rules/Proxy.list
           if git diff --cached --quiet; then
             echo "No upstream changes."
             exit 0
