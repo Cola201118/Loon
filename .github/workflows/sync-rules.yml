@@ -53,6 +53,35 @@ jobs:
             }
           ' > rules/Apple.list
 
+
+      - name: Download and merge AI rules
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/poohyeban/loon-rules/main/rules/OpenAI/OpenAI-NoResolve.list" -o rules/OpenAI-NoResolve.list
+          curl --fail --location --silent --show-error "https://raw.githubusercontent.com/VPSDance/ai-proxy-rules/main/rules/loon/google-ai.list" -o rules/Gemini.list
+          {
+            echo "# AI rules (OpenAI + Gemini, deduplicated)"
+            echo "# OpenAI source preserves no-resolve IP rules."
+            cat rules/OpenAI-NoResolve.list
+            echo
+            cat rules/Gemini.list
+          } | awk '
+            {
+              original = $0
+              key = $0
+              sub(/[[:space:]]*#.*/, "", key)
+              gsub(/^[[:space:]]+|[[:space:]]+$/, "", key)
+              if (key == "" || key ~ /^#/) {
+                if (original ~ /^[[:space:]]*#/) print original
+                next
+              }
+              key = tolower(key)
+              gsub(/[[:space:]]+/, "", key)
+              if (!seen[key]++) print original
+            }
+          ' > rules/AI.list
+
       - name: Commit changes when needed
         shell: bash
         run: |
