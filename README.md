@@ -22,7 +22,7 @@
 
 | 规则 | 订阅链接 | 当前规则数 |
 |---|---|---:|
-| Muse（Meta AI / Muse / Llama / SAM 分类） | [Muse.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Muse.list) | 19 |
+| Muse（Meta AI / Muse / Llama / SAM 分类） | [Muse.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Muse.list) | 13 |
 | Grok（xAI / Grok / Grokipedia 分类） | [Grok.list](https://raw.githubusercontent.com/Cola201118/Loon/main/rules/Grok.list) | 5 |
 
 Muse 与 Grok 的上游规则也包含在 AI.list 中，仍保留独立订阅文件；两份独立文件不与 OpenAI、Gemini 或彼此合并。上游采用 YUDIDIFEI/Scripts 的 Loon AI 分类清单；GitHub Actions 每 6 小时同步并按分类提取。Muse 分类按上游原始分组，包含 Meta AI、Muse、Llama 与 SAM 相关域名。Muse.list 目前为上游 13 条，Grok.list 为上游 5 条。
